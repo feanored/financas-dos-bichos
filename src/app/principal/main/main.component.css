@@ -1,0 +1,29 @@
+.grafico {
+  float: left;
+  margin: 5px 10px;
+}
+
+#pie_contas, #pie_cartoes {
+  margin-left: 25px;
+  margin-right: 60px;
+}
+
+#form_datas {
+  width: 296px;
+}
+
+@media only screen and (max-width: 500px) {
+  .grafico {
+    margin-left: -110px;
+  }
+  #pie_contas, #pie_cartoes {
+    margin-left: -55px;
+  }
+  .centerPhone {
+    text-align: center;
+  }
+  #form_datas {
+    width: 90%;
+    margin-left: 2px;
+  }
+}

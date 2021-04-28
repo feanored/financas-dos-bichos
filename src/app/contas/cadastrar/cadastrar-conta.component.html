@@ -1,0 +1,54 @@
+<h1>Cadastrar conta</h1>
+
+<div class="well">
+  <form #formConta="ngForm">
+    <div class="form-group row">
+      <div class="row">
+      <div class="col-md-8">
+        <label for="nome">Título da conta:</label>
+        <input [(ngModel)]="conta.nome" #nome="ngModel" type="text" class="form-control" id="nome" name="nome" minlength="4" required>
+        <div *ngIf="nome.errors && (nome.dirty || nome.touched)">
+          <div class="alert alert-danger">
+            <div [hidden]="!nome.errors.required">
+              Digite o título da conta.
+            </div>
+            <div [hidden]="!nome.errors.minlength">
+              O título da conta deve conter ao menos 4 caracteres.
+            </div>
+          </div>
+        </div>
+      </div></div>
+      <div class="row">
+      <div class="col-md-4">
+        <label for="tipo">Tipo da conta:</label>
+        <select class="form-control" [(ngModel)]="conta.tipo" #tipo="ngModel" id="tipo" name="tipo" required>
+          <option value="">--selecione--</option>
+          <option *ngFor="let item of tipos" [value]="item" [attr.selected]="null">
+            {{item}}
+          </option>
+        </select>
+        <div *ngIf="tipo.errors && (tipo.dirty || tipo.touched)" class="alert alert-danger">
+          <div [hidden]="!tipo.errors.required">
+            Informe o tipo da conta (Débito ou Crédito).
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="saldo">Saldo da conta:</label>
+        <input type="number" [(ngModel)]="conta.saldo" #saldo="ngModel" class="form-control" id="saldo" name="saldo" required>
+        <div *ngIf="saldo.errors && (saldo.dirty || saldo.touched)" class="alert alert-danger">
+          <div [hidden]="!saldo.errors.required">
+            Digite o saldo inicial da conta (em R$).
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="row"><div class="form-group text-center col-md-8">
+      <input type="submit" class="btn btn-success" (click)="cadastrar()" [disabled]="!formConta.form.valid" value="Cadastrar">&nbsp;
+      <a [routerLink]="['/contas']" class="btn btn-default">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Voltar
+      </a>
+    </div></div>
+  </form>
+</div>

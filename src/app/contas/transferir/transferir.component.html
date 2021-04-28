@@ -1,0 +1,53 @@
+<h1>Fazer transferência</h1>
+
+<div class="well">
+  <form #formTransferir="ngForm">
+    <div class="form-group row">
+      <div class="row">
+      <div class="col-md-3">
+        <label for="conta_from">Conta de origem:</label>
+        <select class="form-control" [(ngModel)]="transferir.conta_from" #conta_from="ngModel" id="conta_from" name="conta_from" required (ngModelChange)="filtrar(transferir.conta_from);">
+          <option value="">--selecione--</option>
+          <option *ngFor="let item of contas" [value]="item" [attr.selected]="null">
+            {{item}}
+          </option>
+        </select>
+        <div *ngIf="conta_from.errors && (conta_from.dirty || conta_from.touched)" class="alert alert-danger">
+          <div [hidden]="!conta_from.errors.required">
+            Informe a conta de origem.
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="conta_to">Conta de destino:</label>
+        <select class="form-control" [(ngModel)]="transferir.conta_to" #conta_to="ngModel" id="conta_to" name="conta_to" required>
+          <option value="">--selecione--</option>
+          <option *ngFor="let item of contas_to" [value]="item" [attr.selected]="null">
+            {{item}}
+          </option>
+        </select>
+        <div *ngIf="conta_to.errors && (conta_to.dirty || conta_to.touched)" class="alert alert-danger">
+          <div [hidden]="!conta_to.errors.required">
+            Informe a conta de destino.
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="valor">Valor:</label>
+        <input type="number" [(ngModel)]="transferir.valor" #valor="ngModel" class="form-control" id="valor" name="valor" required (blur)="validarValor(transferir.valor);">
+        <div *ngIf="valor.errors && (valor.dirty || valor.touched)" class="alert alert-danger">
+          <div [hidden]="!valor.errors.required">
+            Digite um valor positivo para a transferência (em R$).
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="row"><div class="form-group text-center col-md-9">
+      <input type="submit" class="btn btn-success" (click)="confirmar()" [disabled]="!formTransferir.form.valid" value="Transferir">&nbsp;
+      <a [routerLink]="['/contas']" class="btn btn-default">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Voltar
+      </a>
+    </div></div>
+  </form>
+</div>

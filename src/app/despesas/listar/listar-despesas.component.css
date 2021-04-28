@@ -1,0 +1,41 @@
+.table>tbody>tr>th{
+  vertical-align: middle;
+}
+
+.right {
+  float: right;
+  margin-right: 3px;
+}
+
+.right>.btn{
+  float:right;
+  margin-top: -28px;
+  margin-right: 5px;
+}
+
+.btn {
+  margin: 2px 2.5px;
+}
+
+.size-a {
+  width: 140px;
+}
+
+.size-b {
+  max-width: 140px;
+  min-width: 118px;
+}
+
+@media only screen and (max-width: 500px) {
+  .hiddenOnPhone{
+    display: none;
+  }
+  .disable-text {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}

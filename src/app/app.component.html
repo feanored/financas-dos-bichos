@@ -1,0 +1,32 @@
+<div class="container-fluid" style="margin-top:5px;">
+  <nav class="navbar navbar-default">
+    <img class="left" width="40" alt="{{title}}" title="{{title}}" src="assets/money.png" />
+    <div class="container-fluid">
+      <div class="navbar-brand hello">
+        <span (click)="editarUsuario();" *ngIf="usuario != 'Convidado'">Olá, {{usuario}}!</span><span (click)="editarUsuario();" *ngIf="usuario == 'Convidado'">Fazer login!</span>
+      </div>
+      <div class="navbar-header" *ngIf="usuario != 'Convidado'">
+        <h3><a class="navbar-brand" href="/principal">Gráficos</a></h3>
+        <div class="clear"></div>
+        <h3><a class="navbar-brand" href="/contas">Contas</a></h3>
+        <h3><a class="navbar-brand" href="/despesas">Despesas</a></h3>
+        <h3><a class="navbar-brand" href="/pagamentos">Pagamentos</a></h3>
+      </div>
+      <div class="navbar-header" *ngIf="usuario == 'Convidado'">
+        <h3><a class="navbar-brand" href="/principal">{{title}}</a></h3>
+      </div>
+    </div>
+  </nav>
+  <div class="navbar navbar-header right" *ngIf="usuario != 'Convidado'">
+    <h4><a class="btn btn-xs btn-primary" (click)="refreshDados()" title="Atualizar Dados"><span class="glyphicon glyphicon-retweet"></span></a></h4>
+    <h4 class="hidden"><a class="btn btn-xs btn-success" href="javascript:(localStorageBackup())" title="Salvar Dados"><span class="glyphicon glyphicon-save-file"></span></a></h4>
+    <h4 class="hidden"><a class="btn btn-xs btn-info" href="javascript:(localStorageRestore())" title="Carregar Dados"><span class="glyphicon glyphicon-open-file"></span></a></h4>
+    <h4 class="hidden"><a class="btn btn-xs btn-danger" href="javascript:(localStorageClear())" title="Limpar Dados"><span class="glyphicon glyphicon-trash"></span></a></h4>
+  </div>
+  <router-outlet *ngIf="usuario != 'Convidado'"></router-outlet>
+</div>
+<div class="container-fluid" *ngIf="usuario == 'Convidado'">
+  <div class="well">
+    <h3>Faça <a (click)="editarUsuario();" style="cursor: pointer;">login</a> para começar a usar a ferramenta.</h3>
+  </div>
+</div>

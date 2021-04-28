@@ -1,0 +1,113 @@
+@font-face {
+  font-family: 'FF Tisa Sans Pro';
+  src: local('FF Tisa Sans Pro Medium'), local('FF-Tisa-Sans-Pro-Medium'),
+      url('src/assets/TisaSansPro-Medium.woff2') format('woff2'),
+      url('src/assets/TisaSansPro-Medium.woff') format('woff'),
+      url('src/assets/TisaSansPro-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  /* -moz-osx-font-smoothing: grayscale; */
+}
+
+* {
+  font-family: 'FF Tisa Sans Pro';
+}
+
+.glyphicon {
+  font-family: "Glyphicons Halflings" !important;
+}
+
+h1,h2,h3,h4,h5,h6,p {
+  margin: 0;
+}
+
+.left{
+  float:left;
+  margin: 5px 10px 0px 10px;
+}
+
+.navbar-header h2, .navbar-header h3, .navbar-header h4{
+  display: inline-block;
+}
+
+h3 .navbar-brand{
+  padding-top: 16.25px;
+  font-size: 16px;
+}
+
+h4 .navbar-brand{
+  font-size:12px;
+}
+
+h4 a{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.navbar-brand:hover{
+  color:navy;
+}
+
+.navbar-header.right{
+  float: right;
+}
+
+.navbar-header.right>h4>a{
+  margin-left: 3px;
+  margin-right: 2px;
+}
+
+.hello{
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
+  color: navy;
+}
+
+.hello span{
+  cursor: pointer;
+}
+
+.clear{
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .clear{
+    clear: both;
+    display: block;
+  }
+  .navbar-header{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .navbar-brand{
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .clear{
+    clear: both;
+    display: block;
+  }
+  .navbar-header{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .navbar-brand{
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .hiddenCell {
+    display: none;
+  }
+}

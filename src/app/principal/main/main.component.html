@@ -1,0 +1,22 @@
+<h2>Gráficos</h2>
+
+<div class="well">
+  <form #formFiltro="ngForm" class="centerPhone">
+    <mat-form-field appearance="fill" id="form_datas">
+      <mat-label>Selecione um período:</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Data inicial" [(ngModel)]="data_from" [ngModelOptions]="{standalone: true}">
+        <input matEndDate placeholder="Data final" [(ngModel)]="data_to" [ngModelOptions]="{standalone: true}" (dateChange)="filtrar(true)">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </form>
+  <div class="row" style="overflow: hidden">
+    <div class="text-center" *ngIf="hiddenMsg">Gerando gráficos...</div>
+    <div class="grafico" id="pie_contas"></div>
+    <div class="grafico" id="pie_cartoes"></div>
+    <div class="grafico" id="pie_despesas"></div>
+    <div class="grafico" id="pie_faturas"></div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Acessar seus dados</h2>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Login</mat-label>
+    <input matInput [(ngModel)]="data.usuario" placeholder="Convidado" (focus)="limpar()">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Senha</mat-label>
+    <input type="password" matInput [(ngModel)]="data.senha">
+  </mat-form-field>
+</div><br>
+<div mat-dialog-actions>
+  <span *ngIf="data.usuario != '' && data.senha != undefined && data.senha != ''">
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Login</button>&nbsp;&nbsp;
+  </span>
+  <button mat-button (click)="fechar()">Cancelar</button>
+</div>

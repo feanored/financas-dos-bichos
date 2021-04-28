@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "financas-dos-bichos": {
+      "hosting": {
+        "financas-dos-bichos": [
+          "financas-dos-bichos"
+        ]
+      }
+    }
+  }
+}

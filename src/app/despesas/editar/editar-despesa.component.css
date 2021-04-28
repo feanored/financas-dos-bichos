@@ -1,0 +1,24 @@
+
+.row{
+  margin: 2px;
+}
+
+.alert{
+  margin-top: 5px;
+}
+
+.col-md-8, .col-md-4{
+  margin-bottom: 25px;
+}
+
+.checkbox {
+  margin: 0;
+}
+
+.checkbox label{
+  font-weight: 700;
+}
+
+.form-control{
+  min-width:95%;
+}

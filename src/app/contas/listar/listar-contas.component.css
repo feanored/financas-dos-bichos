@@ -1,0 +1,13 @@
+.red {
+  color: red;
+}
+
+.btn {
+  margin: 2px 2.5px;
+}
+
+@media only screen and (max-width: 500px) {
+  .hiddenOnPhone{
+    display: none;
+  }
+}

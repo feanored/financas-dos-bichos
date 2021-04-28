@@ -1,0 +1,66 @@
+<h1>Editar pagamento</h1>
+
+<div class="well">
+  <form #formRecebimento="ngForm">
+    <div class="form-group row">
+      <div class="row">
+        <div class="col-md-4">
+          <label for="nome">Descrição:</label>
+          <input [(ngModel)]="recebimento.nome" #nome="ngModel" type="text" class="form-control" id="nome" name="nome" minlength="4" required>
+          <div *ngIf="nome.errors && (nome.dirty || nome.touched)">
+            <div class="alert alert-danger">
+              <div [hidden]="!nome.errors.required">
+                Descreva esse pagamento.
+              </div>
+              <div [hidden]="!nome.errors.minlength">
+                A descrição deve conter ao menos 4 caracteres.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label for="data">Data:</label>
+          <input [(ngModel)]="recebimento.data" #data="ngModel" type="datetime-local" class="form-control center-block" id="data" name="data" required>
+          <div *ngIf="data.errors && (data.dirty || data.touched)">
+            <div class="alert alert-danger">
+              <div [hidden]="!data.errors.required">
+                Informe a data.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+      <div class="col-md-4">
+        <label for="conta">Conta:</label>
+        <select class="form-control" [(ngModel)]="recebimento.conta" #conta="ngModel" id="conta" name="conta" required aria-disabled="true" disabled>
+          <option value="">--selecione--</option>
+          <option *ngFor="let item of contas" [value]="item" [attr.selected]="item == conta ? true : null">
+            {{item}}
+          </option>
+        </select>
+        <div *ngIf="conta.errors && (conta.dirty || conta.touched)" class="alert alert-danger">
+          <div [hidden]="!conta.errors.required">
+            Escolha a conta deste pagamento.
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="valor">Valor:</label>
+        <input type="number" [(ngModel)]="recebimento.valor" #valor="ngModel" class="form-control" id="valor" name="valor" required readonly>
+        <div *ngIf="valor.errors && (valor.dirty || valor.touched)" class="alert alert-danger">
+          <div [hidden]="!valor.errors.required">
+            Digite o valor do pagamento (em R$).
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="row"><div class="form-group text-center col-md-8">
+      <input type="submit" class="btn btn-success" (click)="atualizar()" [disabled]="!formRecebimento.form.valid" value="Atualizar">&nbsp;
+      <a [routerLink]="['/pagamentos']" class="btn btn-default">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Voltar
+      </a>
+    </div></div>
+  </form>
+</div>
