@@ -1,10 +1,10 @@
-# GerenciadorDeTarefas
+# App de Gestão de Finanças Pessoais
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `https://financas-dos-bichos.web.app/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 

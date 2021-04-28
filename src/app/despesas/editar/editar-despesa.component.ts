@@ -23,11 +23,14 @@ export class EditarDespesaComponent implements OnInit {
   @ViewChild('formDespesa', { static: true }) formDespesa: NgForm;
   contas: string[] = [];
   despesa: Despesa;
+  dataForm: string;
 
   ngOnInit(): void {
     const id = +this.route.snapshot.params['id'];
     this.despesa = this.despesaService.buscarPorId(id);
-    this.despesa.data = new Date(this.despesa.data.toISOString().slice(0, 16));
+    let data = new Date(this.despesa.data);
+    data.setMinutes((data.getMinutes() - data.getTimezoneOffset()));
+    this.dataForm = data.toISOString().slice(0, 16);
 
     // obter as despesas para seleção
     this.contaService.listarTodos().forEach(obj => {
@@ -37,6 +40,7 @@ export class EditarDespesaComponent implements OnInit {
 
   atualizar(): void{
     if (this.formDespesa.form.valid) {
+      this.despesa.data = new Date(this.formDespesa.form.get("data").value);
       this.despesaService.atualizar(this.despesa);
       this.router.navigate(['/despesas']);
     }

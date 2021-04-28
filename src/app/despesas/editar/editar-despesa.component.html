@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-4">
           <label for="data">Data:</label>
-          <input [(ngModel)]="despesa.data" #data="ngModel" type="datetime-local" class="form-control center-block" id="data" name="data" required>
+          <input [(ngModel)]="dataForm" #data="ngModel" type="datetime-local" class="form-control center-block" id="data" name="data" required>
           <div *ngIf="data.errors && (data.dirty || data.touched)">
             <div class="alert alert-danger">
               <div [hidden]="!data.errors.required">
