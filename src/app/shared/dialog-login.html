@@ -1,17 +1,23 @@
 <h2 mat-dialog-title>Acessar seus dados</h2>
 <div mat-dialog-content>
+  <form [formGroup]="loginForm">
   <mat-form-field>
     <mat-label>Login</mat-label>
-    <input matInput [(ngModel)]="data.usuario" placeholder="Convidado" (focus)="limpar()">
+    <input matInput [(ngModel)]="data.usuario" formControlName="usuario" placeholder="Convidado" (focus)="limpar()">
+    <mat-error *ngIf="hasError('usuario', 'required')">
+      <strong>Digite seu usuário!</strong>
+    </mat-error>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field style="margin-top:15px;">
     <mat-label>Senha</mat-label>
-    <input type="password" matInput [(ngModel)]="data.senha">
+    <input type="password" matInput [(ngModel)]="data.senha" formControlName="senha">
+    <mat-error *ngIf="hasError('senha', 'required')">
+      <strong>Digite sua senha!</strong>
+    </mat-error>
   </mat-form-field>
+  </form>
 </div><br>
 <div mat-dialog-actions>
-  <span *ngIf="data.usuario != '' && data.senha != undefined && data.senha != ''">
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Login</button>&nbsp;&nbsp;
-  </span>
-  <button mat-button (click)="fechar()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial [disabled]="!loginForm.valid">Login</button>
+  &nbsp;&nbsp;<button mat-button (click)="fechar()">Cancelar</button>
 </div>

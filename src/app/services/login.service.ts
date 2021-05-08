@@ -25,10 +25,12 @@ export class LoginService {
     obj.senha = Md5.hashStr(obj.senha);
     if (ret == undefined || ret == null) {
       // cadastrar usuario
-      this.salvarUsuario(obj.usuario, { "pass": obj.senha });
-      this.usuario = obj.usuario;
-      sessionStorage['usuarioLogado'] = JSON.stringify(this.usuario);
-      return true;
+      alert("A criação de novos usuários está desativada, contate o administrador!");
+      return -1;
+      // this.salvarUsuario(obj.usuario, { "pass": obj.senha });
+      // this.usuario = obj.usuario;
+      // sessionStorage['usuarioLogado'] = JSON.stringify(this.usuario);
+      // return true;
     } else {
       let pass = (Object as any).values(ret);
       if (obj.senha == pass[0]) {
@@ -39,7 +41,7 @@ export class LoginService {
       } else {
         // senha incorreta
         this.usuario = 'Convidado';
-        return false;
+        return 0;
       }
     }
   }

@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PrincipalModule } from './principal';
@@ -30,6 +30,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     MatDialogModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     PrincipalModule,
     ContasModule,

@@ -53,7 +53,7 @@ export class ListarRecebimentosComponent implements OnInit {
   listarTodos(): Recebimento[] {
     const lista = this.recebimentoService.listarTodos();
     if (lista.length > 0)
-      return lista.sort((a, b) => b.id - a.id);
+      return lista.sort((a, b) => <any>new Date(b.data) - <any>new Date(a.data));
     return [];
   }
 

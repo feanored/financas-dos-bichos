@@ -53,7 +53,7 @@ export class ListarDespesasComponent implements OnInit {
   listarTodos(): Despesa[] {
     const lista = this.despesaService.listarTodos();
     if (lista.length > 0)
-      return lista.sort((a, b) => b.id - a.id);
+      return lista.sort((a, b) => <any>new Date(b.data) - <any>new Date(a.data));
     return [];
   }
 
