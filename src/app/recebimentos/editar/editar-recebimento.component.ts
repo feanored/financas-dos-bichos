@@ -41,6 +41,18 @@ export class EditarRecebimentoComponent implements OnInit {
     atualizar(): void{
       if (this.formRecebimento.form.valid) {
         this.recebimento.data = new Date(this.formRecebimento.form.get("data").value);
+        const novo_valor = this.formRecebimento.form.get("valor").value;
+        // buscar a conta associada e acrescentar o pagamento
+        let conta = this.contaService.buscarPorNome(this.recebimento.conta);
+        if (conta.tipo == "Débito") {
+          conta.saldo -= this.recebimento.valor;
+          conta.saldo += novo_valor;
+        } else if (conta.tipo == "Crédito") {
+          conta.saldo += this.recebimento.valor;
+          conta.saldo -= novo_valor;
+        }
+        this.contaService.atualizar(conta);
+        this.recebimento.valor = novo_valor;
         this.recebimentoService.atualizar(this.recebimento);
         this.router.navigate(['/pagamentos']);
       }

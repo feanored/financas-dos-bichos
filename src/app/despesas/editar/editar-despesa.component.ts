@@ -41,6 +41,18 @@ export class EditarDespesaComponent implements OnInit {
   atualizar(): void{
     if (this.formDespesa.form.valid) {
       this.despesa.data = new Date(this.formDespesa.form.get("data").value);
+      const novo_valor = this.formDespesa.form.get("valor").value;
+      // buscar a conta associada e descontar a despesa
+      let conta = this.contaService.buscarPorNome(this.despesa.conta);
+      if (conta.tipo == "Débito") {
+        conta.saldo += this.despesa.valor;
+        conta.saldo -= novo_valor;
+      } else if (conta.tipo == "Crédito") {
+        conta.saldo -= this.despesa.valor;
+        conta.saldo += novo_valor;
+      }
+      this.contaService.atualizar(conta);
+      this.despesa.valor = novo_valor;
       this.despesaService.atualizar(this.despesa);
       this.router.navigate(['/despesas']);
     }

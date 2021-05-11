@@ -31,7 +31,7 @@ export class MainComponent implements OnInit {
     this.cartoesChart = [];
     this.despesas = [];
     this.faturas = [];
-   }
+  }
 
   ngOnInit(): void {
     const filtros = localStorage['filtros_graficos'] ?

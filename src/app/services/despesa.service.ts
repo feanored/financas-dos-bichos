@@ -56,7 +56,7 @@ export class DespesaService {
         });
       gastos.push([c.nome, total]);
     });
-    return gastos;
+    return gastos.sort((a, b) => a[1]-b[1]);
   }
 
   getFaturaPorDatas(data_from: Date, data_to: Date, contas: Conta[]): any[] {

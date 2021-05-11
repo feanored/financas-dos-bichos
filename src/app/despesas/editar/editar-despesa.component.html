@@ -47,7 +47,7 @@
         </div>
         <div class="col-md-4">
           <label for="valor">Valor:</label>
-          <input type="number" [(ngModel)]="despesa.valor" #valor="ngModel" class="form-control" id="valor" name="valor" required readonly>
+          <input type="number" [value]="despesa.valor" [ngModel]="despesa.valor" #valor="ngModel" class="form-control" id="valor" name="valor" required>
           <div *ngIf="valor.errors && (valor.dirty || valor.touched)" class="alert alert-danger">
             <div [hidden]="!valor.errors.required">
               Digite o valor da despesa (em R$).
