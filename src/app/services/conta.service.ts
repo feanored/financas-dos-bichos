@@ -46,6 +46,7 @@ export class ContaService {
   }
 
   atualizar(conta: Conta): void {
+    conta.saldo = parseFloat(conta.saldo.toFixed(2));
     const contas = this.listarTodos();
     contas.forEach((obj, index, objs) => {
       if (conta.id == obj.id) {

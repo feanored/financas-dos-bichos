@@ -22,9 +22,13 @@ export class CadastrarRecebimentoComponent implements OnInit {
   @ViewChild('formRecebimento', { static: true }) formRecebimento: NgForm;
   contas: string[] = [];
   recebimento: Recebimento;
+  dataForm: string;
 
   ngOnInit(): void {
     this.recebimento = new Recebimento();
+    let data = new Date();
+    data.setMinutes((data.getMinutes() - data.getTimezoneOffset()));
+    this.dataForm = data.toISOString().slice(0, 16);
 
     // obter as contas para seleção
     this.contaService.listarTodos().forEach(obj => {
@@ -35,7 +39,7 @@ export class CadastrarRecebimentoComponent implements OnInit {
 
   cadastrar(): void {
     if (this.formRecebimento.form.valid) {
-      this.recebimento.data = new Date();
+      this.recebimento.data = new Date(this.formRecebimento.form.get("data").value);
       this.recebimentoService.cadastrar(this.recebimento);
 
       // buscar a conta associada e acrescentar o pagamento

@@ -41,6 +41,7 @@ h1,h2,h3,h4,h5,h6,p {
 h3 .navbar-brand{
   padding-top: 16.25px;
   font-size: 16px;
+  color: #333333;
 }
 
 h4 .navbar-brand{
@@ -52,7 +53,7 @@ h4 a{
 }
 
 .navbar-brand:hover{
-  color:navy;
+  color:navy !important;
 }
 
 .navbar-header.right{

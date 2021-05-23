@@ -44,7 +44,9 @@
       </div>
     </div>
     <div class="row"><div class="form-group text-center col-md-9">
-      <input type="submit" class="btn btn-success" (click)="confirmar()" [disabled]="!formTransferir.form.valid" value="Transferir">&nbsp;
+      <a class="btn btn-success" (click)="confirmar()" [class]="{'disabled':!formTransferir.form.valid}">
+        <span class="glyphicon glyphicon-transfer" style="top: 2px;"></span>&nbsp; Transferir
+      </a>
       <a [routerLink]="['/contas']" class="btn btn-default">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Voltar
       </a>
