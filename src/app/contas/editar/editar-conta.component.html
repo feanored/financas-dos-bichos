@@ -45,8 +45,10 @@
       </div>
     </div>
     <div class="row"><div class="form-group text-center col-md-8">
-      <input type="submit" class="btn btn-success" (click)="atualizar()" [disabled]="!formConta.form.valid" value="Atualizar">&nbsp;
-      <a href="#" (click)="apagar($event, conta.id)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Excluir</a>&nbsp;
+      <a class="btn btn-success" (click)="atualizar()" [class]="{'disabled':!formConta.form.valid}">
+        <span class="glyphicon glyphicon-floppy-disk" style="top: 2px;"></span>&nbsp; Salvar
+      </a>
+      <a href="#" (click)="apagar($event, conta.id)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true" style="top: 2px;"></span> Excluir</a>
       <a [routerLink]="['/contas']" class="btn btn-default">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Voltar
       </a>

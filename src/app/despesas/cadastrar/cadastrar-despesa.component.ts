@@ -22,9 +22,13 @@ export class CadastrarDespesaComponent implements OnInit {
   @ViewChild('formDespesa', { static: true }) formDespesa: NgForm;
   contas: string[] = [];
   despesa: Despesa;
+  dataForm: string;
 
   ngOnInit(): void {
     this.despesa = new Despesa();
+    let data = new Date();
+    data.setMinutes((data.getMinutes() - data.getTimezoneOffset()));
+    this.dataForm = data.toISOString().slice(0, 16);
 
     // obter as contas para seleção
     this.contaService.listarTodos().forEach(obj => {
@@ -35,7 +39,7 @@ export class CadastrarDespesaComponent implements OnInit {
 
   cadastrar(): void {
     if (this.formDespesa.form.valid) {
-      this.despesa.data = new Date();
+      this.despesa.data = new Date(this.formDespesa.form.get("data").value);
       this.despesaService.cadastrar(this.despesa);
 
       // buscar a conta associada e descontar a despesa
