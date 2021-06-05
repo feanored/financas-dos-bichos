@@ -15,6 +15,7 @@ export class ListarContasComponent implements OnInit {
     ) { }
 
   contas: Conta[] = [];
+  mostrarNovo: boolean = false;
 
   ngOnInit(): void {
     this.listarTodos();

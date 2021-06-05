@@ -3,11 +3,32 @@
 }
 
 .btn {
-  margin: 2px 2.5px;
+  margin: 2px 0px;
+}
+
+.table-box th, .table-box td{
+  vertical-align: middle;
+}
+
+.relative{
+  position: relative;
+}
+
+.absolute{
+  position: absolute;
+  top: -25px;
+  right: 0px;
+}
+
+.final{
+  width: 170px;
 }
 
 @media only screen and (max-width: 500px) {
   .hiddenOnPhone{
     display: none;
+  }
+  .final {
+    width: 70px;
   }
 }
