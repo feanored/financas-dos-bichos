@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 
 import { Conta } from '../../shared';
 import { ContaService } from '../../services/conta.service';
@@ -16,6 +16,14 @@ export class ListarContasComponent implements OnInit {
 
   contas: Conta[] = [];
   mostrarNovo: boolean = false;
+
+  @ViewChild('modal_dialog') modal: TemplateRef<any>;
+  @ViewChild('vc', {read: ViewContainerRef}) vc: ViewContainerRef;
+  backdrop: any;
+  modalTitulo: string = 'Contas';
+  modalTexto: string = '';
+  modalTipo: number = 1;
+  data_id: number;
 
   ngOnInit(): void {
     this.listarTodos();
@@ -37,10 +45,33 @@ export class ListarContasComponent implements OnInit {
   }
 
   alterarStatus(id: number) {
-    if (confirm("Quer mesmo alterar o status desta conta?")) {
-      this.contaService.alterarStatus(id);
-      this.listarTodos();
-    } else return false;
+    this.data_id = id;
+    this.showDialog(2, "Quer mesmo alterar o status desta conta?");
+    return false;
+  }
+
+  confirmar(id: number) {
+    this.contaService.alterarStatus(id);
+    this.listarTodos();
+  }
+
+  showDialog(tipo: number, texto: string){
+    this.modalTipo = tipo;
+    this.modalTexto = texto;
+    let view = this.modal.createEmbeddedView(null);
+    this.vc.insert(view);
+    this.modal.elementRef.nativeElement.previousElementSibling.classList.remove('fade');
+    this.modal.elementRef.nativeElement.previousElementSibling.classList.add('modal-open');
+    this.modal.elementRef.nativeElement.previousElementSibling.style.display = 'block';
+    this.backdrop = document.createElement('DIV');
+    this.backdrop.className = 'modal-backdrop';
+    this.backdrop.style.opacity = 0.6;
+    document.body.appendChild(this.backdrop);
+  }
+
+  closeDialog() {
+    this.vc.clear();
+    this.backdrop.parentNode.removeChild(this.backdrop);
   }
 
 }

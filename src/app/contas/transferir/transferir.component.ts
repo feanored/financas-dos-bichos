@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ContaService } from '../../services/conta.service';
@@ -27,6 +27,13 @@ export class TransferirComponent implements OnInit {
   contas_to_aux: string[] = [];
   transferir: Transferir;
 
+  @ViewChild('modal_dialog') modal: TemplateRef<any>;
+  @ViewChild('vc', {read: ViewContainerRef}) vc: ViewContainerRef;
+  backdrop: any;
+  modalTitulo: string = 'Transferência entre contas';
+  modalTexto: string = '';
+  modalTipo: number = 1;
+
   ngOnInit(): void {
     this.transferir = {conta_from:'', conta_to:'', valor:null};
 
@@ -51,6 +58,10 @@ export class TransferirComponent implements OnInit {
       this.transferir.valor = null;
   }
 
+  pedirConfirmacao() {
+    this.showDialog(2, 'Confirma esta transferência?');
+  }
+
   confirmar(): void {
     if (this.formTransferir.form.valid) {
       let conta_from = this.contaService.buscarPorNome(this.transferir.conta_from);
@@ -62,9 +73,28 @@ export class TransferirComponent implements OnInit {
         conta_to.saldo -= this.transferir.valor;
       this.contaService.atualizar(conta_from);
       this.contaService.atualizar(conta_to);
-      alert("Transferência realizada com sucesso!");
-      this.router.navigate(["/contas"]);
+      this.showDialog(1, 'Transferência realizada com sucesso!');
     }
+  }
+
+  showDialog(tipo: number, texto: string){
+    this.modalTipo = tipo;
+    this.modalTexto = texto;
+    let view = this.modal.createEmbeddedView(null);
+    this.vc.insert(view);
+    this.modal.elementRef.nativeElement.previousElementSibling.classList.remove('fade');
+    this.modal.elementRef.nativeElement.previousElementSibling.classList.add('modal-open');
+    this.modal.elementRef.nativeElement.previousElementSibling.style.display = 'block';
+    this.backdrop = document.createElement('DIV');
+    this.backdrop.className = 'modal-backdrop';
+    this.backdrop.style.opacity = 0.6;
+    document.body.appendChild(this.backdrop);
+  }
+
+  closeDialog(redirect: boolean = false) {
+    this.vc.clear();
+    this.backdrop.parentNode.removeChild(this.backdrop);
+    if (redirect) this.router.navigate(["/contas"]);
   }
 
 }

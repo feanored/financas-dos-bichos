@@ -46,3 +46,25 @@
 </div>
 
 <div class="alert alert-warning" *ngIf="despesas.length == 0">Nenhuma despesa encontrada.</div>
+
+<!-- Modal -->
+<ng-container #vc></ng-container>
+<ng-template #modal_dialog>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeDialog()"> &times; </button>
+                    <h4 class="modal-title">{{modalTitulo}}</h4>
+                </div>
+                <div class="modal-body alert">{{modalTexto}}</div>
+                <div class="modal-footer" *ngIf="modalTipo == 1">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="closeDialog()">OK </button>
+                </div>
+                <div class="modal-footer" *ngIf="modalTipo == 2">
+                  <button type="button" class="btn btn-success" data-dismiss="modal" (click)="confirmar(data_id); closeDialog()">Sim </button>&nbsp;
+                  <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeDialog()">Não </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

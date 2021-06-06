@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="row"><div class="form-group text-center col-md-9">
-      <a class="btn btn-success" (click)="confirmar()" [class]="{'disabled':!formTransferir.form.valid}">
+      <a class="btn btn-success" (click)="pedirConfirmacao()" [class]="{'disabled':!formTransferir.form.valid}">
         <span class="glyphicon glyphicon-transfer" style="top: 2px;"></span>&nbsp; Transferir
       </a>
       <a [routerLink]="['/contas']" class="btn btn-default">
@@ -53,3 +53,25 @@
     </div></div>
   </form>
 </div>
+
+<!-- Modal -->
+<ng-container #vc></ng-container>
+<ng-template #modal_dialog>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeDialog()"> &times; </button>
+                    <h4 class="modal-title">{{modalTitulo}}</h4>
+                </div>
+                <div class="modal-body alert">{{modalTexto}}</div>
+                <div class="modal-footer" *ngIf="modalTipo == 1">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="closeDialog(true)">OK </button>
+                </div>
+                <div class="modal-footer" *ngIf="modalTipo == 2">
+                  <button type="button" class="btn btn-success" data-dismiss="modal" (click)="closeDialog(); confirmar()">Sim </button>&nbsp;
+                  <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeDialog()">Não </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

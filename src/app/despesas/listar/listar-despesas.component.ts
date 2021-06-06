@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ContaService } from 'src/app/contas';
 
@@ -30,6 +30,14 @@ export class ListarDespesasComponent implements OnInit {
   data_from: Date;
   data_to: Date;
 
+  @ViewChild('modal_dialog') modal: TemplateRef<any>;
+  @ViewChild('vc', {read: ViewContainerRef}) vc: ViewContainerRef;
+  backdrop: any;
+  modalTitulo: string = 'Despesas';
+  modalTexto: string = '';
+  modalTipo: number = 1;
+  data_id: number;
+
   ngOnInit(): void {
     const filtros = localStorage['filtros_graficos'] ?
       JSON.parse(localStorage['filtros_graficos']) : null;
@@ -57,26 +65,6 @@ export class ListarDespesasComponent implements OnInit {
     return [];
   }
 
-  apagar($event: any, id: number) {
-    $event.preventDefault();
-    if (confirm("Tem certeza que quer remover esta despesa?")) {
-      // buscar a conta associada e remover a despesa
-      this.despesas.forEach(obj => {
-        if (obj.id == id) {
-          let conta = this.contaService.buscarPorNome(obj.conta);
-          if (conta.tipo == "Débito") {
-            conta.saldo += obj.valor;
-          } else if (conta.tipo == "Crédito") {
-            conta.saldo -= obj.valor;
-          }
-          this.contaService.atualizar(conta);
-        }
-      });
-      this.despesaService.remover(id);
-      this.filtrar();
-    }
-  }
-
   filtrar(): void {
     this.despesas = this.listarTodos().filter(z =>
       z.conta.toLowerCase().includes(this.filtro.conta.toLowerCase()) &&
@@ -96,6 +84,48 @@ export class ListarDespesasComponent implements OnInit {
     else if (op == 2)
       this.filtro.conta = "";
     this.filtrar();
+  }
+
+  apagar($event: any, id: number) {
+    $event.preventDefault();
+    this.data_id = id;
+    this.showDialog(2, "Tem certeza que quer remover esta despesa?");
+  }
+
+  confirmar(id: number) {
+    // buscar a conta associada e remover a despesa
+    this.despesas.forEach(obj => {
+      if (obj.id == id) {
+        let conta = this.contaService.buscarPorNome(obj.conta);
+        if (conta.tipo == "Débito") {
+          conta.saldo += obj.valor;
+        } else if (conta.tipo == "Crédito") {
+          conta.saldo -= obj.valor;
+        }
+        this.contaService.atualizar(conta);
+      }
+    });
+    this.despesaService.remover(id);
+    this.filtrar();
+  }
+
+  showDialog(tipo: number, texto: string){
+    this.modalTipo = tipo;
+    this.modalTexto = texto;
+    let view = this.modal.createEmbeddedView(null);
+    this.vc.insert(view);
+    this.modal.elementRef.nativeElement.previousElementSibling.classList.remove('fade');
+    this.modal.elementRef.nativeElement.previousElementSibling.classList.add('modal-open');
+    this.modal.elementRef.nativeElement.previousElementSibling.style.display = 'block';
+    this.backdrop = document.createElement('DIV');
+    this.backdrop.className = 'modal-backdrop';
+    this.backdrop.style.opacity = 0.6;
+    document.body.appendChild(this.backdrop);
+  }
+
+  closeDialog() {
+    this.vc.clear();
+    this.backdrop.parentNode.removeChild(this.backdrop);
   }
 
 }

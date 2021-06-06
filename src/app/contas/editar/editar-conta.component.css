@@ -10,3 +10,7 @@
 .col-md-8, .col-md-4{
   margin-bottom: 25px;
 }
+
+.modal-footer .btn+.btn{
+  margin-bottom: 0 !important;
+}

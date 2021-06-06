@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -25,6 +25,14 @@ export class EditarContaComponent implements OnInit {
   @ViewChild('formConta', { static: true }) formConta: NgForm;
   tipos: string[] = [];
   conta: Conta;
+
+  @ViewChild('modal_dialog') modal: TemplateRef<any>;
+  @ViewChild('vc', {read: ViewContainerRef}) vc: ViewContainerRef;
+  backdrop: any;
+  modalTitulo: string = 'Contas';
+  modalTexto: string = '';
+  modalTipo: number = 1;
+  data_id: number;
 
   ngOnInit(): void {
     const id = +this.route.snapshot.params['id'];
@@ -54,10 +62,32 @@ export class EditarContaComponent implements OnInit {
 
   apagar($event: any, id: number) {
     $event.preventDefault();
-    if (confirm("Tem certeza que quer apagar esta conta?")) {
-      this.contaService.remover(id);
-      this.router.navigate(['/contas']);
-    }
+    this.data_id = id;
+    this.showDialog(2, "Tem certeza que quer apagar esta conta?");
+  }
+
+  confirmar(id: number) {
+    this.contaService.remover(id);
+    this.router.navigate(['/contas']);
+  }
+
+  showDialog(tipo: number, texto: string){
+    this.modalTipo = tipo;
+    this.modalTexto = texto;
+    let view = this.modal.createEmbeddedView(null);
+    this.vc.insert(view);
+    this.modal.elementRef.nativeElement.previousElementSibling.classList.remove('fade');
+    this.modal.elementRef.nativeElement.previousElementSibling.classList.add('modal-open');
+    this.modal.elementRef.nativeElement.previousElementSibling.style.display = 'block';
+    this.backdrop = document.createElement('DIV');
+    this.backdrop.className = 'modal-backdrop';
+    this.backdrop.style.opacity = 0.6;
+    document.body.appendChild(this.backdrop);
+  }
+
+  closeDialog() {
+    this.vc.clear();
+    this.backdrop.parentNode.removeChild(this.backdrop);
   }
 
 }
