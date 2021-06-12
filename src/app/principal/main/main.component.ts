@@ -116,12 +116,14 @@ export class MainComponent implements OnInit {
     const el_3 = document.getElementById('pie_faturas');
     const chart_3 = new google.visualization.PieChart(el_3);
     chart_3.draw(this.obterDadosFaturas(), config_faturas);
+    const width = (this.contasChart.length*20).toString() + '%';
 
     let config_contas = {
       title: 'Saldo das contas: '+this.obterTotalContas(),
       width: 525,
       height: 350,
-      bar: {groupWidth: "80%"},
+      vAxis: {minValue: 0},
+      bar: {groupWidth: width},
       legend: { position: "none" },
       backgroundColor: 'transparent',
       titleTextStyle: {
@@ -139,6 +141,7 @@ export class MainComponent implements OnInit {
       title: 'Fatura dos cartões: '+this.obterTotalCartoes(),
       width: 525,
       height: 350,
+      vAxis: {minValue: 0},
       bar: {groupWidth: "40%"},
       legend: { position: "none" },
       backgroundColor: 'transparent',
