@@ -10,6 +10,7 @@ export class ContaService {
   constructor(private fire: FireService) { }
 
   private colecao: string = "contas";
+  public contas: Conta[] = [];
 
   listarTodos(): Conta[] {
     const lista = localStorage[this.colecao];
@@ -25,17 +26,21 @@ export class ContaService {
     this.fire.salvarColecao(0);
   }
 
-  buscarPorId(id: number): any {
+  buscarPorId(id: number): Conta {
     const lista = this.listarTodos();
     return lista.find(obj => obj.id == id);
   }
 
-  buscarPorNome(nome: string): any {
+  getById(id: number): Conta {
+    return this.contas.find(obj => obj.id == id);
+  }
+
+  buscarPorNome(nome: string): Conta {
     const lista = this.listarTodos();
     return lista.find(obj => obj.nome == nome);
   }
 
-  buscarPorTipo(tipo: string): any {
+  buscarPorTipo(tipo: string): Conta[] {
     const lista = this.listarTodos();
     let ret: Conta[] = [];
     lista.forEach(obj => {

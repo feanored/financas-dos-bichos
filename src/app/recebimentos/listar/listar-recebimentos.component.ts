@@ -19,7 +19,7 @@ export class ListarRecebimentosComponent implements OnInit {
 
   constructor(
     private recebimentoService: RecebimentoService,
-    private contaService: ContaService
+    public contaService: ContaService
     ) { }
 
   @ViewChild('formFiltroNome', { static: true }) formFiltroNome: NgForm;
@@ -39,6 +39,8 @@ export class ListarRecebimentosComponent implements OnInit {
   data_id: number;
 
   ngOnInit(): void {
+    this.contaService.contas = this.contaService.listarTodos().filter(z => !z.desativado);
+    // recupera filtros
     const filtros = localStorage['filtros_graficos'] ?
       JSON.parse(localStorage['filtros_graficos']) : null;
     if (filtros) {

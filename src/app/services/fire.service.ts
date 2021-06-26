@@ -10,7 +10,7 @@ export class FireService {
 
   constructor(private db: AngularFirestore, private loginService: LoginService) { }
 
-  private colecoes: string[] =  ["contas", "despesas", "recebimentos"];
+  private colecoes: string[] =  ["contas", "despesas", "recebimentos", "categorias"];
   private cont: number;
 
   obterDados(colecao: string): Observable<any> {
@@ -31,8 +31,9 @@ export class FireService {
           localStorage[colecao] = JSON.stringify(dados);
         } catch {}
         finally {
-          if (++this.cont == this.colecoes.length)
+          if (++this.cont == this.colecoes.length) {
             window.location.reload();
+          }
         }
       });
     });
@@ -41,8 +42,9 @@ export class FireService {
   salvarColecao(ind: number) {
     const colecao = this.colecoes[ind];
     const lista = localStorage[colecao];
-    if (lista)
+    if (lista) {
       this.salvarDados(colecao, JSON.parse(lista));
+    }
   }
 
 }

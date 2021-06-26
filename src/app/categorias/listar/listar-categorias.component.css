@@ -17,10 +17,6 @@
   margin: 2px 2.5px;
 }
 
-.size-a {
-  width: 140px;
-}
-
 .size-b {
   max-width: 140px;
   min-width: 118px;
@@ -30,16 +26,12 @@
   vertical-align: middle;
 }
 
-.showOnPhone{
-  visibility: hidden;
-}
-
 @media only screen and (max-width: 500px) {
   .hiddenOnPhone{
     display: none;
   }
-  .showOnPhone{
-    visibility: visible;
+  .size-b{
+    width: 120px;
   }
   .disable-text {
     -webkit-touch-callout: none;

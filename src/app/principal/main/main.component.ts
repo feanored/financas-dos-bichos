@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { CategoriaService } from 'src/app/categorias';
 import { ContaService } from 'src/app/contas';
 import { DespesaService } from 'src/app/despesas';
+import { Categoria } from 'src/app/models/categoria.model';
 import { Conta } from 'src/app/shared';
 
 declare var google: any;
@@ -17,19 +19,23 @@ export class MainComponent implements OnInit {
   data_from: Date;
   data_to: Date;
   contas: Conta[];
+  categorias: Categoria[];
   contasChart: any[];
   cartoesChart: any[];
-  despesas: any[];
+  despesasPorConta: any[];
+  despesasPorCategoria: any[];
   faturas: any[];
   hiddenMsg: boolean = true;
 
   constructor(
     private contaService: ContaService,
+    private categoriaService: CategoriaService,
     private despesaService: DespesaService)
   {
     this.contasChart = [];
     this.cartoesChart = [];
-    this.despesas = [];
+    this.despesasPorConta = [];
+    this.despesasPorCategoria = [];
     this.faturas = [];
   }
 
@@ -43,6 +49,7 @@ export class MainComponent implements OnInit {
       this.data_from = this.despesaService.getDataMin();
       this.data_to = new Date();
     }
+    this.categorias = this.categoriaService.listarTodos();
     this.contas = this.contaService.listarTodos().filter(obj => !obj.desativado);
     this.contas.forEach(obj => {
       if (obj.tipo == 'Débito') {
@@ -58,7 +65,8 @@ export class MainComponent implements OnInit {
 
   filtrar(update: boolean): void {
     if (this.data_from != null && this.data_to != null) {
-      this.despesas = this.despesaService.buscaPorDatas(this.data_from, this.data_to, this.contas);
+      this.despesasPorConta = this.despesaService.agrupaPorConta(this.data_from, this.data_to, this.contas);
+      this.despesasPorCategoria = this.despesaService.agrupaPorCategoria(this.data_from, this.data_to, this.categorias);
       this.faturas = this.despesaService.getFaturaPorDatas(this.data_from, this.data_to, this.contas);
       if (update) {
         localStorage['filtros_graficos'] = JSON.stringify({
@@ -81,7 +89,9 @@ export class MainComponent implements OnInit {
   }
 
   exibirGraficos(): void {
-    let config_despesas = {
+    const el_1 = document.getElementById('pie_despesas');
+    const chart_1 = new google.visualization.PieChart(el_1);
+    chart_1.draw(this.obterDadosDespesas(), {
       title: 'Gastos por conta: '+this.obterTotalDespesas(),
       width: 600,
       height: 350,
@@ -94,12 +104,28 @@ export class MainComponent implements OnInit {
         fontSize: 14,
         bold: true,
       }
-    };
-    const el_1 = document.getElementById('pie_despesas');
-    const chart_1 = new google.visualization.PieChart(el_1);
-    chart_1.draw(this.obterDadosDespesas(), config_despesas);
+    });
 
-    let config_faturas = {
+    const el_5 = document.getElementById('pie_categorias');
+    const chart_5 = new google.visualization.PieChart(el_5);
+    chart_5.draw(this.obterDadosCategorias(), {
+      title: 'Gastos por categoria: '+this.obterTotalDespesas(),
+      width: 600,
+      height: 350,
+      is3D: true,
+      pieSliceText: 'value',
+      backgroundColor: 'transparent',
+      titleTextStyle: {
+        color: 'navy',
+        fontName: 'FF Tisa Sans Pro',
+        fontSize: 14,
+        bold: true,
+      }
+    });
+
+    const el_3 = document.getElementById('pie_faturas');
+    const chart_3 = new google.visualization.PieChart(el_3);
+    chart_3.draw(this.obterDadosFaturas(), {
       title: 'Compras dos cartões: '+this.obterTotalFaturas(),
       width: 600,
       height: 350,
@@ -112,13 +138,12 @@ export class MainComponent implements OnInit {
         fontSize: 14,
         bold: true,
       }
-    };
-    const el_3 = document.getElementById('pie_faturas');
-    const chart_3 = new google.visualization.PieChart(el_3);
-    chart_3.draw(this.obterDadosFaturas(), config_faturas);
+    });
     const width = (this.contasChart.length*20).toString() + '%';
 
-    let config_contas = {
+    const el_2 = document.getElementById('pie_contas');
+    const chart_2 = new google.visualization.ColumnChart(el_2);
+    chart_2.draw(this.obterDadosContas(), {
       title: 'Saldo das contas: '+this.obterTotalContas(),
       width: 525,
       height: 350,
@@ -132,12 +157,11 @@ export class MainComponent implements OnInit {
         fontSize: 14,
         bold: true,
       }
-    };
-    const el_2 = document.getElementById('pie_contas');
-    const chart_2 = new google.visualization.ColumnChart(el_2);
-    chart_2.draw(this.obterDadosContas(), config_contas);
+    });
 
-    let config_cartoes = {
+    const el_4 = document.getElementById('pie_cartoes');
+    const chart_4 = new google.visualization.ColumnChart(el_4);
+    chart_4.draw(this.obterDadosCartoes(), {
       title: 'Fatura dos cartões: '+this.obterTotalCartoes(),
       width: 525,
       height: 350,
@@ -151,23 +175,28 @@ export class MainComponent implements OnInit {
         fontSize: 14,
         bold: true,
       }
-    };
-    const el_4 = document.getElementById('pie_cartoes');
-    const chart_4 = new google.visualization.ColumnChart(el_4);
-    chart_4.draw(this.obterDadosCartoes(), config_cartoes);
+    });
   }
 
   obterDadosDespesas(): any {
     const dados = new google.visualization.DataTable();
     dados.addColumn('string', 'Conta');
     dados.addColumn('number', 'Gastos no período');
-    dados.addRows(this.despesas);
+    dados.addRows(this.despesasPorConta);
+    return dados;
+  }
+
+  obterDadosCategorias(): any {
+    const dados = new google.visualization.DataTable();
+    dados.addColumn('string', 'Categoria');
+    dados.addColumn('number', 'Gastos no período');
+    dados.addRows(this.despesasPorCategoria);
     return dados;
   }
 
   obterTotalDespesas(): string {
     let total = 0;
-    this.despesas.forEach(z => total += z[1]);
+    this.despesasPorConta.forEach(z => total += z[1]);
     return 'R$ '+total.toFixed(2);
   }
 

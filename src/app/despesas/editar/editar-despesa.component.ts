@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Despesa } from '../../shared';
+import { Conta, Despesa } from '../../shared';
 import { ContaService } from '../../contas';
 import { DespesaService } from '../../services/despesa.service';
+import { Categoria } from 'src/app/models/categoria.model';
+import { CategoriaService } from 'src/app/categorias';
 
 @Component({
   selector: 'app-editar-despesa',
@@ -16,12 +18,14 @@ export class EditarDespesaComponent implements OnInit {
   constructor(
     private contaService: ContaService,
     private despesaService: DespesaService,
+    private categoriaService: CategoriaService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
   @ViewChild('formDespesa', { static: true }) formDespesa: NgForm;
-  contas: string[] = [];
+  contas: Conta[] = [];
+  categorias: Categoria[] = [];
   despesa: Despesa;
   dataForm: string;
 
@@ -34,7 +38,11 @@ export class EditarDespesaComponent implements OnInit {
 
     // obter as despesas para seleção
     this.contaService.listarTodos().forEach(obj => {
-      this.contas.push(obj.nome);
+      this.contas.push(obj);
+    });
+    // obter as categorias para seleção
+    this.categoriaService.listarTodos().forEach(obj => {
+      this.categorias.push(obj);
     });
   }
 

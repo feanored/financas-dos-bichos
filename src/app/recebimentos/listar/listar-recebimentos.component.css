@@ -30,9 +30,16 @@
   vertical-align: middle;
 }
 
+.showOnPhone{
+  visibility: hidden;
+}
+
 @media only screen and (max-width: 500px) {
   .hiddenOnPhone{
     display: none;
+  }
+  .showOnPhone{
+    visibility: visible;
   }
   .disable-text {
     -webkit-touch-callout: none;

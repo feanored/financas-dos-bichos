@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Despesa } from '../../shared';
 import { ContaService } from '../../contas';
 import { DespesaService } from '../../services/despesa.service';
+import { CategoriaService } from 'src/app/categorias';
+import { Categoria } from 'src/app/models/categoria.model';
 
 @Component({
   selector: 'app-cadastrar-despesa',
@@ -16,11 +18,13 @@ export class CadastrarDespesaComponent implements OnInit {
   constructor(
     private contaService: ContaService,
     private despesaService: DespesaService,
+    private categoriaService: CategoriaService,
     private router: Router
   ) { }
 
   @ViewChild('formDespesa', { static: true }) formDespesa: NgForm;
   contas: string[] = [];
+  categorias: Categoria[] = [];
   despesa: Despesa;
   dataForm: string;
 
@@ -34,6 +38,10 @@ export class CadastrarDespesaComponent implements OnInit {
     this.contaService.listarTodos().forEach(obj => {
       if (!obj.desativado)
         this.contas.push(obj.nome);
+    });
+    // obter as categorias para seleção
+    this.categoriaService.listarTodos().forEach(obj => {
+      this.categorias.push(obj);
     });
   }
 

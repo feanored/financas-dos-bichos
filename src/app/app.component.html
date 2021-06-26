@@ -5,13 +5,14 @@
       <div class="navbar-brand hello">
         <span (click)="editarUsuario();" *ngIf="usuario != 'Convidado'">Olá, {{usuario}}!</span><span (click)="editarUsuario();" *ngIf="usuario == 'Convidado'">Fazer login!</span>
       </div>
-      <div class="navbar-header" *ngIf="usuario != 'Convidado'">
-        <h3><a class="navbar-brand" href="/principal">Gráficos</a></h3>
-        <div class="clear"></div>
-        <h3><a class="navbar-brand" href="/contas">Contas</a></h3>
-        <h3><a class="navbar-brand" href="/despesas">Despesas</a></h3>
-        <h3><a class="navbar-brand" href="/pagamentos">Pagamentos</a></h3>
-      </div>
+      <nav class="navbar-header" *ngIf="usuario != 'Convidado'">
+        <a class="navbar-brand" href="/principal">Gráficos</a>
+        <a class="clear"></a>
+        <a class="navbar-brand" href="/contas">Contas</a>
+        <a class="navbar-brand" href="/despesas">Despesas</a>
+        <a class="navbar-brand" href="/pagamentos">Pagamentos</a>
+        <a class="navbar-brand" href="/categorias">Categorias</a>
+      </nav>
       <div class="navbar-header" *ngIf="usuario == 'Convidado'">
         <h3><a class="navbar-brand" href="/principal">{{title}}</a></h3>
       </div>

@@ -19,6 +19,45 @@
           </div>
         </div>
         <div class="col-md-4">
+          <label for="valor">Valor:</label>
+          <input type="number" [(ngModel)]="despesa.valor" #valor="ngModel" class="form-control" id="valor" name="valor" required>
+          <div *ngIf="valor.errors && (valor.dirty || valor.touched)" class="alert alert-danger">
+            <div [hidden]="!valor.errors.required">
+              Digite o valor da despesa (em R$).
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <label for="conta">Escolha a conta:</label>
+          <select class="form-control" [(ngModel)]="despesa.conta" #conta="ngModel" id="conta" name="conta" required>
+            <option value="">--selecione--</option>
+            <option *ngFor="let item of contas" [value]="item" [attr.selected]="item == conta ? true : null">
+              {{item}}
+            </option>
+          </select>
+          <div *ngIf="conta.errors && (conta.dirty || conta.touched)" class="alert alert-danger">
+            <div [hidden]="!conta.errors.required">
+              Escolha a conta desta despesa.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label for="categoria">Escolha a categoria:</label>
+          <select class="form-control" [(ngModel)]="despesa.categoria" #categoria="ngModel" id="categoria" name="categoria" required>
+            <option value="">--selecione--</option>
+            <option *ngFor="let item of categorias" [value]="item.id" [attr.selected]="item.id == categoria ? true : null">
+              {{item.nome}}
+            </option>
+          </select>
+          <div *ngIf="categoria.errors && (categoria.dirty || categoria.touched)" class="alert alert-danger">
+            <div [hidden]="!categoria.errors.required">
+              Escolha a categoria desta despesa.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
           <label for="data">Data:</label>
           <input [(ngModel)]="dataForm" #data="ngModel" type="datetime-local" class="form-control center-block" id="data" name="data" required>
           <div *ngIf="data.errors && (data.dirty || data.touched)">
@@ -29,31 +68,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-      <div class="col-md-4">
-        <label for="conta">Escolha a conta:</label>
-        <select class="form-control" [(ngModel)]="despesa.conta" #conta="ngModel" id="conta" name="conta" required>
-          <option value="">--selecione--</option>
-          <option *ngFor="let item of contas" [value]="item" [attr.selected]="item == conta ? true : null">
-            {{item}}
-          </option>
-        </select>
-        <div *ngIf="conta.errors && (conta.dirty || conta.touched)" class="alert alert-danger">
-          <div [hidden]="!conta.errors.required">
-            Escolha a conta desta despesa.
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <label for="valor">Valor:</label>
-        <input type="number" [(ngModel)]="despesa.valor" #valor="ngModel" class="form-control" id="valor" name="valor" required>
-        <div *ngIf="valor.errors && (valor.dirty || valor.touched)" class="alert alert-danger">
-          <div [hidden]="!valor.errors.required">
-            Digite o valor da despesa (em R$).
-          </div>
-        </div>
-      </div>
       </div>
     </div>
     <div class="row"><div class="form-group text-center col-md-8">

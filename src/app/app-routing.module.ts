@@ -5,6 +5,7 @@ import { PrincipalRoutes } from './principal';
 import { ContaRoutes } from './contas';
 import { DespesaRoutes } from './despesas';
 import { RecebimentoRoutes } from './recebimentos';
+import { CategoriasRoutes } from './categorias';
 
 export const routes: Routes = [
   {
@@ -15,7 +16,8 @@ export const routes: Routes = [
   ...PrincipalRoutes,
   ...ContaRoutes,
   ...DespesaRoutes,
-  ...RecebimentoRoutes
+  ...RecebimentoRoutes,
+  ...CategoriasRoutes
 ];
 
 @NgModule({

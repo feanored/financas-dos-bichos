@@ -4,7 +4,8 @@
 <table class="table table-striped table-bordered table-hover">
   <tbody>
   <tr>
-  	<th>Descrição</th>
+  	<th><span class="hiddenOnPhone">Descrição</span><span class="showOnPhone">Desc./Categoria</span></th>
+    <th class="hiddenOnPhone">Categoria</th>
     <th class="hiddenOnPhone">Conta</th>
     <th class="hiddenOnPhone size-a">Data</th>
     <th class="size-b">Valor</th>
@@ -16,19 +17,34 @@
   </tr>
   <tr class="hidden"><th colspan="4">&nbsp;</th></tr>
   <tr>
-    <th>
-      <form #formFiltroNome="ngForm"><input [(ngModel)]="filtro.nome" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (ngModelChange)="filtrar()" placeholder="filtrar"></form>
+    <th class="hiddenOnPhone">
+      <form #formFiltroNome="ngForm">
+        <input [(ngModel)]="filtro.nome" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (ngModelChange)="filtrar()" placeholder="filtrar">
+      </form>
       <div class="right"><a class="btn btn-xs btn-danger" *ngIf="filtro.nome!=''" (click)="limparFiltro(1)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></div>
     </th>
+    <th>
+      <form #formFiltroCat="ngForm">
+        <select [(ngModel)]="filtro.categoria" [ngModelOptions]="{standalone: true}" class="form-control" (change)="filtrar()">
+          <option value="">(Todas)</option>
+          <option *ngFor="let x of categoriaService.categorias" value="{{x.id}}">{{x.nome}}</option>
+        </select>
+      </form>
+    </th>
     <th class="hiddenOnPhone">
-      <form #formFiltroConta="ngForm"><input [(ngModel)]="filtro.conta" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (ngModelChange)="filtrar()" placeholder="filtrar" ></form>
-      <div class="right"><a class="btn btn-xs btn-danger" *ngIf="filtro.conta!=''" (click)="limparFiltro(2)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></div>
+      <form #formFiltroConta="ngForm">
+        <select [(ngModel)]="filtro.conta" [ngModelOptions]="{standalone: true}" class="form-control" (change)="filtrar()">
+          <option value="">(Todas)</option>
+          <option *ngFor="let x of contaService.contas" value="{{x.nome}}">{{x.nome}}</option>
+        </select>
+      </form>
     </th>
     <th class="hiddenOnPhone size-a">-</th>
     <th class="size-b"><span style="color: navy;">R$ {{total | number:'.2'}}</span></th>
   </tr>
   <tr *ngFor="let despesa of despesas">
     <td class="disable-text" #tooltip="matTooltip" (click)="tooltip.show()" matTooltip="{{despesa.conta}}" [matTooltipPosition]="'above'">{{despesa.nome}}</td>
+    <td class="hiddenOnPhone">{{getCategoria(despesa.categoria)}}</td>
     <td class="hiddenOnPhone">{{despesa.conta}}</td>
     <td class="hiddenOnPhone size-a">{{despesa.data | date:'dd/MM/yyyy HH:mm'}}</td>
     <td class="disable-text size-b">R$ {{despesa.valor | number:'.2'}}</td>

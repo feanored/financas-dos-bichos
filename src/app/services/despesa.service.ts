@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Categoria } from '../models/categoria.model';
 import { Conta, Despesa } from '../shared';
 import { FireService } from './fire.service';
 
@@ -43,7 +44,7 @@ export class DespesaService {
     return lista.filter(obj => obj.conta == conta);
   }
 
-  buscaPorDatas(data_from: Date, data_to: Date, contas: Conta[]): any[] {
+  agrupaPorConta(data_from: Date, data_to: Date, contas: Conta[]): any[] {
     let gastos: any[] = [];
     contas.forEach(c => {
       let total: number = 0;
@@ -52,6 +53,22 @@ export class DespesaService {
                        Date.parse(obj.data.toString()) <= data_to.valueOf())
         .forEach(d => {
           if (c.nome == d.conta)
+            total += d.valor;
+        });
+      gastos.push([c.nome, total]);
+    });
+    return gastos.sort((a, b) => a[1]-b[1]);
+  }
+
+  agrupaPorCategoria(data_from: Date, data_to: Date, categorias: Categoria[]): any[] {
+    let gastos: any[] = [];
+    categorias.forEach(c => {
+      let total: number = 0;
+      this.listarTodos()
+        .filter(obj => Date.parse(obj.data.toString()) >= data_from.valueOf() &&
+                       Date.parse(obj.data.toString()) <= data_to.valueOf())
+        .forEach(d => {
+          if (c.id.toString() === d.categoria)
             total += d.valor;
         });
       gastos.push([c.nome, total]);
