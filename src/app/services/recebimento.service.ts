@@ -24,6 +24,27 @@ export class RecebimentoService {
     return new Date(data_min);
   }
 
+  getDatasInicioMes(){
+    let datas = [];
+    this.listarTodos().filter(z=> z.nome.includes("Salário")).forEach(x => {
+      let y = new Date(x.data);
+      datas.push(new Date(y.getFullYear(), y.getMonth(), y.getDate(), 0));
+    });
+    return datas;
+  }
+
+  getDatasFimMes(ini: Date[]){
+    let datas = [];
+    if (ini.length > 1) {
+      ini.slice(1).forEach(y => {
+        let fim = new Date(y.getFullYear(), y.getMonth(), y.getDate()-1, 23, 59, 59);
+        datas.push(fim);
+      });
+    }
+    datas.push(new Date());
+    return datas;
+  }
+
   cadastrar(obj: Recebimento): void {
     const lista = this.listarTodos();
     obj.id = new Date().getTime();

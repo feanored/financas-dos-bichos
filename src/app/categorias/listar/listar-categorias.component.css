@@ -18,8 +18,7 @@
 }
 
 .size-b {
-  max-width: 140px;
-  min-width: 118px;
+  width: 300px;
 }
 
 .table-box th, .table-box td{

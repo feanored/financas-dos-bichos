@@ -4,6 +4,7 @@ import { CategoriaService } from 'src/app/categorias';
 import { ContaService } from 'src/app/contas';
 import { DespesaService } from 'src/app/despesas';
 import { Categoria } from 'src/app/models/categoria.model';
+import { RecebimentoService } from 'src/app/recebimentos';
 import { Conta } from 'src/app/shared';
 
 declare var google: any;
@@ -20,24 +21,26 @@ export class MainComponent implements OnInit {
   data_to: Date;
   contas: Conta[];
   categorias: Categoria[];
-  contasChart: any[];
-  cartoesChart: any[];
-  despesasPorConta: any[];
-  despesasPorCategoria: any[];
-  faturas: any[];
+  contasChart: any[] = [];
+  cartoesChart: any[] = [];
+  despesasPorConta: any[] = [];
+  despesasPorCategoria: any[] = [];
+  faturas: any[] = [];
+  mesesHistorico: any;
   hiddenMsg: boolean = true;
+  mes: string[] = [
+    "Jan", "Fev", "Mar",
+    "Abr", "Mai", "Jun",
+    "Jul", "Ago", "Set",
+    "Out", "Nov", "Dez"
+  ];
 
   constructor(
     private contaService: ContaService,
     private categoriaService: CategoriaService,
-    private despesaService: DespesaService)
-  {
-    this.contasChart = [];
-    this.cartoesChart = [];
-    this.despesasPorConta = [];
-    this.despesasPorCategoria = [];
-    this.faturas = [];
-  }
+    private despesaService: DespesaService,
+    private recebimentoService: RecebimentoService)
+  { }
 
   ngOnInit(): void {
     const filtros = localStorage['filtros_graficos'] ?
@@ -63,6 +66,27 @@ export class MainComponent implements OnInit {
     this.initGoogle();
   }
 
+  geraMesesHistorico() {
+    const inicios = this.recebimentoService.getDatasInicioMes();
+    const finais = this.recebimentoService.getDatasFimMes(inicios);
+    const meses = finais.map(z => z.getMonth());
+    if (meses.length > 1 && meses[meses.length-1] === meses[meses.length-2]) {
+      meses[meses.length-1] = meses[meses.length-2] < 11 ? meses[meses.length-2]+1 : 0;
+    }
+    this.mesesHistorico = new google.visualization.DataTable();
+    this.mesesHistorico.addColumn('string', 'Mês');
+    this.contas.forEach(z => {
+      this.mesesHistorico.addColumn('number', z.nome);
+    });
+    for (let i=0; i < meses.length; i++) {
+      let totais = [];
+      this.contas.forEach(z => {
+        totais.push(this.despesaService.getPorContaEDatas(inicios[i], finais[i], z.nome));
+      });
+      this.mesesHistorico.addRow([this.mes[meses[i]], ...totais]);
+    }
+  }
+
   filtrar(update: boolean): void {
     if (this.data_from != null && this.data_to != null) {
       this.despesasPorConta = this.despesaService.agrupaPorConta(this.data_from, this.data_to, this.contas);
@@ -80,8 +104,9 @@ export class MainComponent implements OnInit {
 
   initGoogle(): void{
     if (typeof(google) !== 'undefined') {
-      google.charts.load('current', {'packages':['corechart']});
+      google.charts.load('current', {packages:['corechart', 'line']});
       setTimeout(() => {
+        this.geraMesesHistorico();
         google.charts.setOnLoadCallback(this.exibirGraficos());
         this.hiddenMsg = false;
       }, 500);
@@ -175,6 +200,26 @@ export class MainComponent implements OnInit {
         fontSize: 14,
         bold: true,
       }
+    });
+
+    const chart_6 = new google.visualization.LineChart(document.getElementById('pie_historico'));
+    chart_6.draw(this.mesesHistorico, /*google.charts.Line.convertOptions(*/{
+      title: 'Histórico de gastos por conta',
+      width: 550,
+      height: 350,
+      axes: {
+        x: {
+          0: {label: ''}
+        }
+      },
+      backgroundColor: 'transparent',
+      titleTextStyle: {
+        color: 'navy',
+        fontName: 'FF Tisa Sans Pro',
+        fontSize: 14,
+        bold: true,
+      },
+      chartArea: {width: '55%'}
     });
   }
 

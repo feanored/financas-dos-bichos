@@ -1,6 +1,10 @@
+.well{
+  margin-bottom: 2px;
+}
+
 .grafico {
   float: left;
-  margin: 5px 10px;
+  margin: 0px 10px;
 }
 
 #pie_contas, #pie_cartoes {
@@ -12,12 +16,22 @@
   width: 296px;
 }
 
+.row{
+  overflow: hidden;
+}
+
 @media only screen and (max-width: 500px) {
+  .row {
+    overflow-x: auto;
+  }
   .grafico {
     margin-left: -110px;
   }
   #pie_contas, #pie_cartoes {
     margin-left: -55px;
+  }
+  #pie_historico {
+    margin-left: -80px;
   }
   .centerPhone {
     text-align: center;

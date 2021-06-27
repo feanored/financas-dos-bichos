@@ -60,6 +60,18 @@ export class DespesaService {
     return gastos.sort((a, b) => a[1]-b[1]);
   }
 
+  getPorContaEDatas(data_from: Date, data_to: Date, conta: string): number {
+    let total = 0;
+    this.listarTodos()
+      .filter(obj => Date.parse(obj.data.toString()) >= data_from.valueOf() &&
+                     Date.parse(obj.data.toString()) <= data_to.valueOf())
+      .forEach(d => {
+        if (d.conta === conta)
+          total += d.valor;
+      });
+    return parseFloat(total.toFixed(2));
+  }
+
   agrupaPorCategoria(data_from: Date, data_to: Date, categorias: Categoria[]): any[] {
     let gastos: any[] = [];
     categorias.forEach(c => {

@@ -43,7 +43,9 @@ export class ListarDespesasComponent implements OnInit {
   data_id: number;
 
   ngOnInit(): void {
-    this.categoriaService.categorias = this.categoriaService.listarTodos();
+    this.categoriaService.categorias = this.categoriaService.listarTodos().sort(function (a, b) {
+      return ('' + a.nome).localeCompare(b.nome);
+    });
     this.contaService.contas = this.contaService.listarTodos().filter(z => !z.desativado);
     // recupera filtros
     const filtros = localStorage['filtros_graficos'] ?
