@@ -8,7 +8,7 @@
     <th class="hiddenOnPhone">Conta</th>
     <th class="hiddenOnPhone size-a">Data</th>
     <th class="size-b">Valor</th>
-  	<th rowspan="2" class="text-center size-b">
+  	<th rowspan="2" class="text-center size-c">
       <a class="btn btn-success" [routerLink]="['/pagamentos/cadastrar']" title="Novo">
          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Novo
       </a>
@@ -30,15 +30,15 @@
         </select>
       </form>
     </th>
-    <th class="hiddenOnPhone size-a">-</th>
-    <th class="size-b"><span style="color: navy;">R$ {{total | number:'.2'}}</span></th>
+    <th class="hiddenOnPhone">-</th>
+    <th><span style="color: navy;">R$ {{total | number:'.2'}}</span></th>
   </tr>
   <tr *ngFor="let recebimento of recebimentos">
     <td class="disable-text" #tooltip="matTooltip" (click)="tooltip.show()" matTooltip="{{recebimento.conta}}" [matTooltipPosition]="'above'">{{recebimento.nome}}</td>
     <td class="hiddenOnPhone">{{recebimento.conta}}</td>
-    <td class="hiddenOnPhone size-a">{{recebimento.data | date:'dd/MM/yyyy HH:mm'}}</td>
-    <td class="disable-text size-b">R$ {{recebimento.valor | number:'.2'}}</td>
-    <td class="text-center size-b">
+    <td class="hiddenOnPhone">{{recebimento.data | date:'dd/MM/yyyy HH:mm'}}</td>
+    <td class="disable-text">R$ {{recebimento.valor | number:'.2'}}</td>
+    <td class="text-center">
       <a title="Editar" [routerLink]="['/pagamentos/editar/', recebimento.id]" alt="Editar" class="btn btn-info">
         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span><span class="hiddenOnPhone"> Editar</span>
       </a>

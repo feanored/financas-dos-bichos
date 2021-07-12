@@ -26,6 +26,14 @@
   min-width: 118px;
 }
 
+.size-c{
+  width: 220px;
+}
+
+.size-d{
+  width: 18.6%;
+}
+
 .table-box th, .table-box td{
   vertical-align: middle;
 }
@@ -48,5 +56,11 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+  .size-c{
+    width: 120px;
+  }
+  .size-d{
+    width: auto;
   }
 }

@@ -17,8 +17,8 @@
   margin: 2px 2.5px;
 }
 
-.size-b {
-  width: 300px;
+.size-c{
+  width: 220px;
 }
 
 .table-box th, .table-box td{
@@ -29,7 +29,7 @@
   .hiddenOnPhone{
     display: none;
   }
-  .size-b{
+  .size-c{
     width: 120px;
   }
   .disable-text {
