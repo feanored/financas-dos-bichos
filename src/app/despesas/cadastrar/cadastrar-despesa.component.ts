@@ -40,8 +40,8 @@ export class CadastrarDespesaComponent implements OnInit {
         this.contas.push(obj.nome);
     });
     // obter as categorias para seleção
-    this.categoriaService.listarTodos().forEach(obj => {
-      this.categorias.push(obj);
+    this.categorias = this.categoriaService.listarTodos().sort(function (a, b) {
+      return ('' + a.nome).localeCompare(b.nome);
     });
   }
 

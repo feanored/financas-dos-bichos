@@ -4,16 +4,17 @@
 
 .grafico {
   float: left;
-  margin: 0px 10px;
+  width: 525px;
+  margin: 0px !important;
 }
 
-#pie_contas, #pie_cartoes {
-  margin-left: 25px;
-  margin-right: 60px;
+.segundaLinha {
+  margin-left: -5px;
 }
 
 #form_datas {
   width: 296px;
+  height: 55px;
 }
 
 .row{

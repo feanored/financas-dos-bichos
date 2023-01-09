@@ -114,6 +114,8 @@ export class MainComponent implements OnInit {
   }
 
   exibirGraficos(): void {
+    const fontName = 'Roboto';
+
     const el_1 = document.getElementById('pie_despesas');
     const chart_1 = new google.visualization.PieChart(el_1);
     chart_1.draw(this.obterDadosDespesas(), {
@@ -125,7 +127,7 @@ export class MainComponent implements OnInit {
       backgroundColor: 'transparent',
       titleTextStyle: {
         color: 'navy',
-        fontName: 'FF Tisa Sans Pro',
+        fontName: fontName,
         fontSize: 14,
         bold: true,
       }
@@ -142,7 +144,7 @@ export class MainComponent implements OnInit {
       backgroundColor: 'transparent',
       titleTextStyle: {
         color: 'navy',
-        fontName: 'FF Tisa Sans Pro',
+        fontName: fontName,
         fontSize: 14,
         bold: true,
       }
@@ -159,7 +161,7 @@ export class MainComponent implements OnInit {
       backgroundColor: 'transparent',
       titleTextStyle: {
         color: 'navy',
-        fontName: 'FF Tisa Sans Pro',
+        fontName: fontName,
         fontSize: 14,
         bold: true,
       }
@@ -178,7 +180,7 @@ export class MainComponent implements OnInit {
       backgroundColor: 'transparent',
       titleTextStyle: {
         color: 'navy',
-        fontName: 'FF Tisa Sans Pro',
+        fontName: fontName,
         fontSize: 14,
         bold: true,
       }
@@ -196,7 +198,7 @@ export class MainComponent implements OnInit {
       backgroundColor: 'transparent',
       titleTextStyle: {
         color: 'navy',
-        fontName: 'FF Tisa Sans Pro',
+        fontName: fontName,
         fontSize: 14,
         bold: true,
       }
@@ -215,7 +217,7 @@ export class MainComponent implements OnInit {
       backgroundColor: 'transparent',
       titleTextStyle: {
         color: 'navy',
-        fontName: 'FF Tisa Sans Pro',
+        fontName: fontName,
         fontSize: 14,
         bold: true,
       },

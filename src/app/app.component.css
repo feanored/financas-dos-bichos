@@ -1,13 +1,3 @@
-@font-face {
-  font-family: 'FF Tisa Sans Pro';
-  src: local('FF Tisa Sans Pro Medium'), local('FF-Tisa-Sans-Pro-Medium'),
-      url('src/assets/TisaSansPro-Medium.woff2') format('woff2'),
-      url('src/assets/TisaSansPro-Medium.woff') format('woff'),
-      url('src/assets/TisaSansPro-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-
 :host {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 14px;
@@ -17,8 +7,18 @@
   /* -moz-osx-font-smoothing: grayscale; */
 }
 
-* {
+/* @font-face {
   font-family: 'FF Tisa Sans Pro';
+  src: local('FF Tisa Sans Pro Medium'), local('FF-Tisa-Sans-Pro-Medium'),
+      url('src/assets/TisaSansPro-Medium.woff2') format('woff2'),
+      url('src/assets/TisaSansPro-Medium.woff') format('woff'),
+      url('src/assets/TisaSansPro-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+} */
+
+* {
+  font-family: 'Roboto'/*'FF Tisa Sans Pro'*/;
 }
 
 .glyphicon {
@@ -44,6 +44,7 @@ h1,h2,h3,h4,h5,h6,p {
   color: #333333;
   border: 1px solid transparent;
   margin-left: 0 !important;
+  font-weight: 500;
 }
 
 .navbar-brand:hover{
