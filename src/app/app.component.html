@@ -7,11 +7,11 @@
       </div>
       <nav class="navbar-header" *ngIf="usuario != 'Convidado'">
         <a class="navbar-brand" href="/principal">Gráficos</a>
-        <a class="clear"></a>
         <a class="navbar-brand" href="/contas">Contas</a>
+        <a class="clear"></a>
+        <a class="navbar-brand" href="/categorias">Categorias</a>
         <a class="navbar-brand" href="/despesas">Despesas</a>
         <a class="navbar-brand" href="/pagamentos">Pagamentos</a>
-        <a class="navbar-brand" href="/categorias">Categorias</a>
       </nav>
       <div class="navbar-header" *ngIf="usuario == 'Convidado'">
         <h3><a class="navbar-brand" href="/principal">{{title}}</a></h3>
