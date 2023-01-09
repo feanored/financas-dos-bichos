@@ -52,7 +52,9 @@ export class MainComponent implements OnInit {
       this.data_from = this.despesaService.getDataMin();
       this.data_to = new Date();
     }
-    this.categorias = this.categoriaService.listarTodos();
+    this.categorias = this.categoriaService.listarTodos().sort(function (a, b) {
+      return ('' + a.nome).localeCompare(b.nome);
+    });
     this.contas = this.contaService.listarTodos().filter(obj => !obj.desativado);
     this.contas.forEach(obj => {
       if (obj.tipo == 'Débito') {
