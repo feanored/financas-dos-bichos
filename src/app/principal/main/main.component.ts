@@ -116,68 +116,17 @@ export class MainComponent implements OnInit {
   }
 
   exibirGraficos(): void {
+    const altura = 350;
     const fontName = 'Roboto';
+    const barWidth = (this.contasChart.length*20).toString() + '%';
 
-    const el_1 = document.getElementById('pie_despesas');
-    const chart_1 = new google.visualization.PieChart(el_1);
-    chart_1.draw(this.obterDadosDespesas(), {
-      title: 'Gastos por conta: '+this.obterTotalDespesas(),
-      width: 600,
-      height: 350,
-      is3D: true,
-      pieSliceText: 'value',
-      backgroundColor: 'transparent',
-      titleTextStyle: {
-        color: 'navy',
-        fontName: fontName,
-        fontSize: 14,
-        bold: true,
-      }
-    });
-
-    const el_5 = document.getElementById('pie_categorias');
-    const chart_5 = new google.visualization.PieChart(el_5);
-    chart_5.draw(this.obterDadosCategorias(), {
-      title: 'Gastos por categoria: '+this.obterTotalDespesas(),
-      width: 600,
-      height: 350,
-      is3D: true,
-      pieSliceText: 'value',
-      backgroundColor: 'transparent',
-      titleTextStyle: {
-        color: 'navy',
-        fontName: fontName,
-        fontSize: 14,
-        bold: true,
-      }
-    });
-
-    const el_3 = document.getElementById('pie_faturas');
-    const chart_3 = new google.visualization.PieChart(el_3);
-    chart_3.draw(this.obterDadosFaturas(), {
-      title: 'Compras dos cartões: '+this.obterTotalFaturas(),
-      width: 600,
-      height: 350,
-      pieHole: 0.33,
-      pieSliceText: 'value',
-      backgroundColor: 'transparent',
-      titleTextStyle: {
-        color: 'navy',
-        fontName: fontName,
-        fontSize: 14,
-        bold: true,
-      }
-    });
-    const width = (this.contasChart.length*20).toString() + '%';
-
-    const el_2 = document.getElementById('pie_contas');
-    const chart_2 = new google.visualization.ColumnChart(el_2);
-    chart_2.draw(this.obterDadosContas(), {
+    const chart_contas = new google.visualization.ColumnChart(document.getElementById('pie_contas'));
+    chart_contas.draw(this.obterDadosContas(), {
       title: 'Saldo das contas: '+this.obterTotalContas(),
       width: 525,
-      height: 350,
+      height: altura,
       vAxis: {minValue: 0},
-      bar: {groupWidth: width},
+      bar: {groupWidth: barWidth},
       legend: { position: "none" },
       backgroundColor: 'transparent',
       titleTextStyle: {
@@ -188,12 +137,11 @@ export class MainComponent implements OnInit {
       }
     });
 
-    const el_4 = document.getElementById('pie_cartoes');
-    const chart_4 = new google.visualization.ColumnChart(el_4);
-    chart_4.draw(this.obterDadosCartoes(), {
+    const chart_cartoes = new google.visualization.ColumnChart(document.getElementById('pie_cartoes'));
+    chart_cartoes.draw(this.obterDadosCartoes(), {
       title: 'Fatura dos cartões: '+this.obterTotalCartoes(),
       width: 525,
-      height: 350,
+      height: altura,
       vAxis: {minValue: 0},
       bar: {groupWidth: "40%"},
       legend: { position: "none" },
@@ -206,16 +154,17 @@ export class MainComponent implements OnInit {
       }
     });
 
-    const chart_6 = new google.visualization.LineChart(document.getElementById('pie_historico'));
-    chart_6.draw(this.mesesHistorico, /*google.charts.Line.convertOptions(*/{
+    const chart_historico = new google.visualization.LineChart(document.getElementById('pie_historico'));
+    chart_historico.draw(this.mesesHistorico, {
       title: 'Histórico de gastos por conta',
-      width: 550,
-      height: 350,
+      width: 525,
+      height: altura,
       axes: {
         x: {
           0: {label: ''}
         }
       },
+      legend: { position: "top" },
       backgroundColor: 'transparent',
       titleTextStyle: {
         color: 'navy',
@@ -225,6 +174,55 @@ export class MainComponent implements OnInit {
       },
       chartArea: {width: '55%'}
     });
+
+    const chart_faturas = new google.visualization.PieChart(document.getElementById('pie_faturas'));
+    chart_faturas.draw(this.obterDadosFaturas(), {
+      title: 'Compras dos cartões: '+this.obterTotalFaturas(),
+      width: 600,
+      height: altura,
+      is3D: true,
+      pieSliceText: 'value',
+      backgroundColor: 'transparent',
+      titleTextStyle: {
+        color: 'navy',
+        fontName: fontName,
+        fontSize: 14,
+        bold: true,
+      }
+    });
+
+    const chart_despesas = new google.visualization.PieChart(document.getElementById('pie_despesas'));
+    chart_despesas.draw(this.obterDadosDespesas(), {
+      title: 'Gastos por conta: '+this.obterTotalDespesas(),
+      width: 600,
+      height: altura,
+      is3D: true,
+      pieSliceText: 'value',
+      backgroundColor: 'transparent',
+      titleTextStyle: {
+        color: 'navy',
+        fontName: fontName,
+        fontSize: 14,
+        bold: true,
+      }
+    });
+
+    const chart_categorias = new google.visualization.PieChart(document.getElementById('pie_categorias'));
+    chart_categorias.draw(this.obterDadosCategorias(), {
+      title: 'Gastos por categoria: '+this.obterTotalDespesas(),
+      width: 600,
+      height: altura,
+      is3D: true,
+      pieSliceText: 'value',
+      backgroundColor: 'transparent',
+      titleTextStyle: {
+        color: 'navy',
+        fontName: fontName,
+        fontSize: 14,
+        bold: true,
+      }
+    });
+    
   }
 
   obterDadosDespesas(): any {

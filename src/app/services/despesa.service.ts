@@ -100,7 +100,7 @@ export class DespesaService {
           }
         });
     });
-    return fatura.sort((a, b) => b[1]-a[1]);
+    return fatura.sort((a, b) => a[1]-b[1]);
   }
 
   atualizar(despesa: Despesa): void {

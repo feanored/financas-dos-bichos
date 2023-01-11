@@ -2,10 +2,14 @@
   margin-bottom: 2px;
 }
 
+.row{
+  overflow: hidden;
+}
+
 .grafico {
   float: left;
   width: 525px;
-  margin: 0px !important;
+  margin: 0px;
 }
 
 .segundaLinha {
@@ -17,28 +21,29 @@
   height: 55px;
 }
 
-.row{
-  overflow: hidden;
-}
-
 @media only screen and (max-width: 500px) {
   .row {
     overflow-x: auto;
   }
-  .grafico {
-    margin-left: -110px;
-  }
-  #pie_contas, #pie_cartoes {
-    margin-left: -55px;
-  }
-  #pie_historico {
-    margin-left: -80px;
-  }
+
   .centerPhone {
     text-align: center;
   }
-  #form_datas {
-    width: 90%;
-    margin-left: 2px;
+
+  .grafico {
+    width: 515px !important;
   }
+
+  .primeiraLinha {
+    margin-left: -55px !important;
+  }
+
+  .segundaLinha {
+    margin-left: -110px !important;
+  }
+
+  #pie_historico{
+    margin-left: -75px !important;
+  }
+
 }
