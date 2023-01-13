@@ -13,8 +13,12 @@
   margin-right: 5px;
 }
 
+.tdNoPadding{
+  padding: 8px 2px !important;
+}
+
 .btn {
-  margin: 2px 2.5px;
+  margin: 2px;
 }
 
 .size-a {
@@ -23,7 +27,7 @@
 
 .size-b {
   max-width: 140px;
-  min-width: 118px;
+  min-width: 112px;
 }
 
 .size-c{
@@ -38,7 +42,13 @@
   visibility: hidden;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 768px) {
+  .hiddenOnTablet{
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 414px) {
   .hiddenOnPhone{
     display: none;
   }
