@@ -6,14 +6,20 @@
   overflow: hidden;
 }
 
+.fLeft{
+  float: left;
+  margin: 0;
+  line-height: 56px;
+}
+
 .grafico {
   float: left;
   width: 525px;
-  margin: 0px;
+  margin: -20px 0 0;
 }
 
 .segundaLinha {
-  margin-left: -5px;
+  margin: -5px 0 -40px -5px;
 }
 
 #form_datas {
@@ -21,7 +27,33 @@
   height: 55px;
 }
 
-@media only screen and (max-width: 500px) {
+.showOnPhone{
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .hiddenOnTablet{
+    display: none;
+  }
+
+  .fLeft{
+    margin-left: 25px;
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .hiddenOnPhone{
+    display: none;
+  }
+
+  .showOnPhone{
+    display: block;
+  }
+
+  .fLeft{
+    line-height: 24px;
+  }
+  
   .row {
     overflow-x: auto;
   }

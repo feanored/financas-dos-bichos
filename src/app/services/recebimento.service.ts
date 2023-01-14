@@ -25,20 +25,17 @@ export class RecebimentoService {
   }
 
   getDatasInicioMes(){
-    let datas = new Set();
-    let anoAtual = new Date().getFullYear();
+    let meses = new Set();
+    const anoAtual = new Date().getFullYear();
     this.listarTodos().filter(x => new Date(x.data).getFullYear() == anoAtual).forEach(x => {
-      let y = new Date(x.data);
-      datas.add(new Date(y.getFullYear(), y.getMonth(), 1, 0));
+      meses.add(new Date(x.data).getMonth());
     });
-    if (datas.size == 0) {
-      let inicioMesAtual = new Date();
-      datas.add(new Date(inicioMesAtual.getFullYear(), inicioMesAtual.getMonth(), 1, 0));
-    }
     let dataList = [];
-    datas.forEach(x => {
-      dataList.push(x);
+    meses.forEach((mes : number) => {
+      dataList.push(new Date(anoAtual, mes, 1, 0));
     });
+    if (meses.size == 0)
+      dataList.push(new Date(anoAtual, new Date().getMonth(), 1, 0));
     return dataList.sort((x, y) => x.getMonth() - y.getMonth());
   }
 

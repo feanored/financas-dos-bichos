@@ -1,7 +1,8 @@
-<h2>Gráficos</h2>
+<h2 class="showOnPhone">Gráficos</h2>
 
-<div class="well">
-  <form #formFiltro="ngForm" class="centerPhone">
+<div class="row">
+  <h2 class="fLeft hiddenOnPhone">Gráficos</h2>
+  <form #formFiltro="ngForm" class="text-center">
     <mat-form-field appearance="fill" id="form_datas">
       <mat-label>Selecione um período:</mat-label>
       <mat-date-range-input [rangePicker]="picker">
@@ -12,6 +13,9 @@
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
   </form>
+</div>
+
+<div class="well">
   <div class="row">
     <div class="text-center" *ngIf="hiddenMsg">Gerando gráficos...</div>
     <div class="grafico primeiraLinha" id="pie_contas"></div>

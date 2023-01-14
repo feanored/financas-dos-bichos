@@ -164,7 +164,7 @@ export class MainComponent implements OnInit {
           0: {label: ''}
         }
       },
-      legend: { position: "top" },
+      legend: { position: "bottom" },
       backgroundColor: 'transparent',
       titleTextStyle: {
         color: 'navy',
