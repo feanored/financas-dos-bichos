@@ -1,9 +1,7 @@
 #btn-fechar{
-    float:right; 
-    cursor: pointer;
-    margin-top: 5px;
-    margin-right: 8px;
-    color: red;
+    float: right;
+    margin-top: 2px;
+    padding-top: 2px;
 }
 
 #inputMath{
