@@ -1,0 +1,33 @@
+<div (click)="fechar()" id="btn-fechar">X</div>
+<h2 mat-dialog-title style="margin-left: 7px">Calculadora</h2>
+<div mat-dialog-content>
+    <div class="buttons">
+        <input class="form-control" id="inputMath" type="text" [(ngModel)]="currentValue" 
+        (keydown)="checaSeLimpa()" (keyup.enter)="calcular()" />
+
+        <button class="btn btn-primary btn-math" (click)="appendToValue('1')">1</button>
+        <button class="btn btn-primary btn-math" (click)="appendToValue('2')">2</button>
+        <button class="btn btn-primary btn-math" (click)="appendToValue('3')">3</button>
+        <button class="btn btn-info btn-math" (click)="appendToValue('+', false)">+</button>
+
+        <button class="btn btn-primary btn-math" (click)="appendToValue('4')">4</button>
+        <button class="btn btn-primary btn-math" (click)="appendToValue('5')">5</button>
+        <button class="btn btn-primary btn-math" (click)="appendToValue('6')">6</button>
+        <button class="btn btn-info btn-math" (click)="appendToValue('-', false)">-</button>
+
+        <button class="btn btn-primary btn-math" (click)="appendToValue('7')">7</button>
+        <button class="btn btn-primary btn-math" (click)="appendToValue('8')">8</button>
+        <button class="btn btn-primary btn-math" (click)="appendToValue('9')">9</button>
+        <button class="btn btn-info btn-math" (click)="appendToValue('*', false)">*</button>
+
+        <button class="btn btn-primary btn-math" (click)="appendToValue('0')">0</button>
+        <button class="btn btn-primary btn-math" (click)="appendToValue('.')">.</button>
+        <button class="btn btn-info btn-math" (click)="appendToValue('/100', false)">%</button>
+        <button class="btn btn-info btn-math" (click)="appendToValue('/', false)">/</button>
+
+        <div style="clear:both; margin-top: 10px">
+            <button class="btn btn-danger" (click)="limpar()">Limpar</button>
+            <button class="btn btn-success" (click)="calcular()" style="float:right">Calcular</button>
+        </div>
+    </div>
+</div>

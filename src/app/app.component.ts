@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     public dialog: MatDialog,
     public loginService: LoginService,
     private fire: FireService
-    ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.loginService.login()) {
@@ -29,10 +29,17 @@ export class AppComponent implements OnInit {
     }
   }
 
+  calculadora(): void {
+    const dialogRef = this.dialog.open(CalculatorDialog, {
+      width: '265px',
+      data: { usuario: this.usuario }
+    });
+  }
+
   editarUsuario(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '250px',
-      data: {usuario: this.usuario}
+    const dialogRef = this.dialog.open(LoginDialog, {
+      width: '235px',
+      data: { usuario: this.usuario }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -45,10 +52,10 @@ export class AppComponent implements OnInit {
           alert("Digite sua senha!");
           this.editarUsuario();
         }
-        else  {
+        else {
           this.loginService.obterUsuario(result.usuario).subscribe(z => {
             let dados = null;
-            try { dados = z.data(); } catch {}
+            try { dados = z.data(); } catch { }
             let ret = this.loginService.cadastrar(result, dados);
             if (ret == -1)
               this.editarUsuario();
@@ -64,7 +71,8 @@ export class AppComponent implements OnInit {
       }
     });
   }
-  // obtem tudo da nuvem novamente
+  
+  // obtém tudo da nuvem novamente
   refreshDados() {
     this.fire.obterTudo();
   }
@@ -79,11 +87,11 @@ export interface LoginData {
   selector: 'dialog-login',
   templateUrl: 'shared/dialog-login.html',
 })
-export class DialogOverviewExampleDialog implements OnInit {
+export class LoginDialog implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: LoginData) {}
+    public dialogRef: MatDialogRef<LoginDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: LoginData) { }
 
   public loginForm: FormGroup;
 
@@ -94,7 +102,7 @@ export class DialogOverviewExampleDialog implements OnInit {
     });
   }
 
-  public hasError = (controlName: string, errorName: string) =>{
+  public hasError = (controlName: string, errorName: string) => {
     return this.loginForm.controls[controlName].hasError(errorName);
   }
 
@@ -105,5 +113,65 @@ export class DialogOverviewExampleDialog implements OnInit {
   limpar() {
     if (this.data.usuario == 'Convidado')
       this.data.usuario = '';
+  }
+}
+
+@Component({
+  selector: 'dialog-calculator',
+  templateUrl: 'shared/dialog-calculator.html',
+  styleUrls: ['shared/dialog.css']
+})
+export class CalculatorDialog implements OnInit {
+
+  constructor(
+    public dialogRef: MatDialogRef<CalculatorDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: LoginData
+  ) { }
+
+  currentValue: string = '';
+  clear: boolean = false;
+  timeOut = null;
+
+  ngOnInit() { }
+
+  appendToValue(number: string, checa: boolean = true): void {
+    if (checa) this.checaSeLimpa();
+    else this.clear = false;
+    this.currentValue += number;
+  }
+
+  calcular(): void {
+    try {
+      if (this.currentValue == '') return;
+      const result = eval(this.currentValue);
+      this.currentValue = result.toString();
+      this.copiar(this.currentValue);
+      this.clear = true;
+    } catch (error) {
+      this.currentValue = 'Erro na expressão';
+      this.timeOut = setTimeout(() => {
+        this.limpar();
+      }, 2500);
+    }
+  }
+
+  checaSeLimpa(): void {
+    if (this.clear) {
+      this.currentValue = '';
+      this.clear = false;
+    }
+  }
+
+  limpar(): void {
+    this.currentValue = '';
+    clearTimeout(this.timeOut);
+  }
+
+  copiar(texto: string): void {
+    navigator.clipboard.writeText(texto);
+  }
+
+  fechar(): void {
+    this.dialogRef.close();
   }
 }

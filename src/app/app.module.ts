@@ -11,7 +11,8 @@ import { PrincipalModule } from './principal';
 import { ContasModule } from './contas';
 import { DespesasModule } from './despesas';
 import { RecebimentosModule } from './recebimentos';
-import { DialogOverviewExampleDialog } from './app.component';
+import { LoginDialog } from './app.component';
+import { CalculatorDialog } from './app.component';
 
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -22,7 +23,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 @NgModule({
   declarations: [
     AppComponent,
-    DialogOverviewExampleDialog
+    LoginDialog,
+    CalculatorDialog
   ],
   imports: [
     BrowserModule,

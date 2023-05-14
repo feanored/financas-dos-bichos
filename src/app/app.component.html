@@ -3,7 +3,8 @@
     <img class="left" width="40" alt="{{title}}" title="{{title}}" src="assets/money.png" />
     <div class="container-fluid">
       <div class="navbar-brand hello">
-        <span (click)="editarUsuario();" *ngIf="usuario != 'Convidado'">Olá, {{usuario}}!</span><span (click)="editarUsuario();" *ngIf="usuario == 'Convidado'">Fazer login!</span>
+        <span (click)="editarUsuario();" *ngIf="usuario != 'Convidado'">Olá, {{usuario}}!</span>
+        <span (click)="editarUsuario();" *ngIf="usuario == 'Convidado'">Fazer login!</span>
       </div>
       <nav class="navbar-header" *ngIf="usuario != 'Convidado'">
         <a class="navbar-brand" href="/principal">Gráficos</a>
@@ -19,10 +20,16 @@
     </div>
   </nav>
   <div class="navbar navbar-header right" *ngIf="usuario != 'Convidado'">
-    <h4><a class="btn btn-xs btn-primary" (click)="refreshDados()" title="Atualizar Dados"><span class="glyphicon glyphicon-retweet"></span></a></h4>
-    <h4 class="hidden"><a class="btn btn-xs btn-success" href="javascript:(localStorageBackup())" title="Salvar Dados"><span class="glyphicon glyphicon-save-file"></span></a></h4>
-    <h4 class="hidden"><a class="btn btn-xs btn-info" href="javascript:(localStorageRestore())" title="Carregar Dados"><span class="glyphicon glyphicon-open-file"></span></a></h4>
-    <h4 class="hidden"><a class="btn btn-xs btn-danger" href="javascript:(localStorageClear())" title="Limpar Dados"><span class="glyphicon glyphicon-trash"></span></a></h4>
+    <h4>
+      <a class="btn btn-xs btn-success" (click)="calculadora()" title="Calculadora">
+        <span class="glyphicon glyphicon-modal-window"></span>
+      </a>
+    </h4>
+    <h4>
+      <a class="btn btn-xs btn-primary" (click)="refreshDados()" title="Atualizar Dados">
+        <span class="glyphicon glyphicon-retweet"></span>
+      </a>
+    </h4>
   </div>
   <router-outlet *ngIf="usuario != 'Convidado'"></router-outlet>
 </div>

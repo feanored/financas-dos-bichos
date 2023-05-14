@@ -52,6 +52,10 @@ body {
   min-height: calc(100% - (.5rem * 2));
 }
 
+.container-fluid{
+  max-width: 1500px;
+}
+
 @-moz-document url-prefix() {
   select.form-control {
     padding-right: 25px;
