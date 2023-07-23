@@ -1,4 +1,4 @@
-<h2>Pagamentos</h2>
+<h2>Receitas</h2>
 
 <div class="table-box">
 <table class="table table-striped table-bordered table-hover">
@@ -9,7 +9,7 @@
     <th class="hiddenOnPhone hiddenOnTablet size-a">Data</th>
     <th class="size-b">Valor</th>
   	<th rowspan="2" class="text-center size-c">
-      <a class="btn btn-success" [routerLink]="['/pagamentos/cadastrar']" title="Novo">
+      <a class="btn btn-success" [routerLink]="['/receitas/cadastrar']" title="Novo">
          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Novo
       </a>
     </th>
@@ -39,7 +39,7 @@
     <td class="hiddenOnPhone hiddenOnTablet">{{recebimento.data | date:'dd/MM/yyyy HH:mm'}}</td>
     <td class="disable-text">R$ {{recebimento.valor | number:'.2'}}</td>
     <td class="text-center tdNoPadding">
-      <a title="Editar" [routerLink]="['/pagamentos/editar/', recebimento.id]" alt="Editar" class="btn btn-info">
+      <a title="Editar" [routerLink]="['/receitas/editar/', recebimento.id]" alt="Editar" class="btn btn-info">
         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span><span class="hiddenOnPhone"> Editar</span>
       </a>
       <a href="#" title="Remover" alt="Remover" class="btn btn-danger" (click)="apagar($event, recebimento.id);">
@@ -51,7 +51,7 @@
 </table>
 </div>
 
-<div class="alert alert-warning" *ngIf="recebimentos.length == 0">Nenhum pagamento encontrado.</div>
+<div class="alert alert-warning" *ngIf="recebimentos.length == 0">Nenhuma receita encontrado.</div>
 
 <!-- Modal -->
 <ng-container #vc></ng-container>

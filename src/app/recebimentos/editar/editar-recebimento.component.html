@@ -1,4 +1,4 @@
-<h2>Editar pagamento</h2>
+<h2>Editar receita</h2>
 
 <div class="well">
   <form #formRecebimento="ngForm">
@@ -10,7 +10,7 @@
           <div *ngIf="nome.errors && (nome.dirty || nome.touched)">
             <div class="alert alert-danger">
               <div [hidden]="!nome.errors.required">
-                Descreva esse pagamento.
+                Descreva essa receita.
               </div>
               <div [hidden]="!nome.errors.minlength">
                 A descrição deve conter ao menos 4 caracteres.
@@ -23,7 +23,7 @@
           <input type="number" [value]="recebimento.valor" [ngModel]="recebimento.valor" #valor="ngModel" class="form-control" id="valor" name="valor" required>
           <div *ngIf="valor.errors && (valor.dirty || valor.touched)" class="alert alert-danger">
             <div [hidden]="!valor.errors.required">
-              Digite o valor do pagamento (em R$).
+              Digite o valor da receita (em R$).
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
           </select>
           <div *ngIf="conta.errors && (conta.dirty || conta.touched)" class="alert alert-danger">
             <div [hidden]="!conta.errors.required">
-              Escolha a conta deste pagamento.
+              Escolha a conta desta receita.
             </div>
           </div>
         </div>
@@ -60,7 +60,7 @@
       <a class="btn btn-success" (click)="atualizar()" [class]="{'disabled':!formRecebimento.form.valid}">
         <span class="glyphicon glyphicon-floppy-disk" style="top: 2px;"></span>&nbsp; Salvar
       </a>
-      <a [routerLink]="['/pagamentos']" class="btn btn-default">
+      <a [routerLink]="['/receitas']" class="btn btn-default">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Voltar
       </a>
     </div></div>

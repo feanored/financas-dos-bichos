@@ -10,7 +10,7 @@ export class FireService {
 
   constructor(private db: AngularFirestore, private loginService: LoginService) { }
 
-  private colecoes: string[] =  ["contas", "despesas", "recebimentos", "categorias"];
+  private colecoes: string[] =  ["contas", "despesas", "recebimentos", "categorias", "transferencias"];
   private cont: number;
 
   obterDados(colecao: string): Observable<any> {

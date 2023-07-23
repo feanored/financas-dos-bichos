@@ -9,6 +9,7 @@ import { CadastrarContaComponent } from './cadastrar';
 import { EditarContaComponent } from './editar';
 import { ContaDesativadaDirective } from './conta-desativada.directive';
 import { TransferirComponent } from './transferir/transferir.component';
+import { ListarTransferenciasComponent } from './listar-transferencias/listar-transferencias.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { TransferirComponent } from './transferir/transferir.component';
     CadastrarContaComponent,
     EditarContaComponent,
     ContaDesativadaDirective,
-    TransferirComponent
+    TransferirComponent,
+    ListarTransferenciasComponent
   ],
   providers: [
     ContaService

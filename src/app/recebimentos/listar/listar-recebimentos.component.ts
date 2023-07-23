@@ -33,7 +33,7 @@ export class ListarRecebimentosComponent implements OnInit {
   @ViewChild('modal_dialog') modal: TemplateRef<any>;
   @ViewChild('vc', {read: ViewContainerRef}) vc: ViewContainerRef;
   backdrop: any;
-  modalTitulo: string = 'Pagamentos';
+  modalTitulo: string = 'Receitas';
   modalTexto: string = '';
   modalTipo: number = 1;
   data_id: number;
@@ -91,11 +91,11 @@ export class ListarRecebimentosComponent implements OnInit {
   apagar($event: any, id: number) {
     $event.preventDefault();
     this.data_id = id;
-    this.showDialog(2, "Tem certeza que quer remover este pagamento?");
+    this.showDialog(2, "Tem certeza que quer remover esta receita?");
   }
 
   confirmar(id: number) {
-    // buscar a conta associada e remover o pagamento
+    // buscar a conta associada e remover o recebimento
     this.recebimentos.forEach(obj => {
       if (obj.id == id) {
         let conta = this.contaService.buscarPorNome(obj.conta);

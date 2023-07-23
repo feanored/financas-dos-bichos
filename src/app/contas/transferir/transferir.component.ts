@@ -2,6 +2,8 @@ import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@an
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ContaService } from '../../services/conta.service';
+import { TransferenciaService } from 'src/app/services/transferencia.service';
+import { Transferencia } from 'src/app/shared';
 
 interface Transferir{
   conta_from: string;
@@ -18,6 +20,7 @@ export class TransferirComponent implements OnInit {
 
   constructor(
     private contaService: ContaService,
+    private transferenciaService: TransferenciaService,
     private router: Router
     ) { }
 
@@ -62,8 +65,18 @@ export class TransferirComponent implements OnInit {
     this.showDialog(2, 'Confirma esta transferência?');
   }
 
+  salvarTransferencia() {
+    const transferencia = new Transferencia();
+    transferencia.origem = this.transferir.conta_from;
+    transferencia.destino = this.transferir.conta_to;
+    transferencia.valor = this.transferir.valor;
+    transferencia.data = new Date();
+    this.transferenciaService.cadastrar(transferencia);
+  }
+
   confirmar(): void {
     if (this.formTransferir.form.valid) {
+      this.salvarTransferencia();
       let conta_from = this.contaService.buscarPorNome(this.transferir.conta_from);
       let conta_to = this.contaService.buscarPorNome(this.transferir.conta_to);
       conta_from.saldo -= this.transferir.valor;

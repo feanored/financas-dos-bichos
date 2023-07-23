@@ -143,6 +143,7 @@ export class CalculatorDialog implements OnInit {
   calcular(): void {
     try {
       if (this.currentValue == '') return;
+      this.currentValue = this.currentValue.replace(/,/g, '.');
       const result = eval(this.currentValue);
       this.currentValue = result.toString();
       this.copiar(this.currentValue);

@@ -42,7 +42,7 @@ export class CadastrarRecebimentoComponent implements OnInit {
       this.recebimento.data = new Date(this.formRecebimento.form.get("data").value);
       this.recebimentoService.cadastrar(this.recebimento);
 
-      // buscar a conta associada e acrescentar o pagamento
+      // buscar a conta associada e acrescentar a receita
       let conta = this.contaService.buscarPorNome(this.recebimento.conta);
       if (conta.tipo == "Débito") {
         conta.saldo += this.recebimento.valor;
@@ -51,7 +51,7 @@ export class CadastrarRecebimentoComponent implements OnInit {
       }
       this.contaService.atualizar(conta);
 
-      this.router.navigate(["/pagamentos"]);
+      this.router.navigate(["/receitas"]);
     }
   }
 

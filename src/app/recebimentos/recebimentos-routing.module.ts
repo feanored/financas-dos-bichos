@@ -5,15 +5,15 @@ import { ListarRecebimentosComponent } from './listar';
 
 export const RecebimentoRoutes: Routes = [
   {
-    path: 'pagamentos',
+    path: 'receitas',
     component: ListarRecebimentosComponent
   },
   {
-    path: 'pagamentos/cadastrar',
+    path: 'receitas/cadastrar',
     component: CadastrarRecebimentoComponent
   },
   {
-    path: 'pagamentos/editar/:id',
+    path: 'receitas/editar/:id',
     component: EditarRecebimentoComponent
   }
 ];
