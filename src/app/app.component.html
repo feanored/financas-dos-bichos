@@ -1,7 +1,7 @@
-<div class="container-fluid" style="padding-top:5px;">
+<div class="container-fluid" style="padding-top:5px;" [ngClass]="{'container-large' : page == '/principal' }">
   <nav class="navbar navbar-default">
     <img class="left" width="40" alt="{{title}}" title="{{title}}" src="assets/money.png" />
-    <div class="container-fluid">
+    <div class="container-fluid" [ngClass]="{'container-large' : page == '/principal' }">
       <div class="navbar-brand hello">
         <span (click)="editarUsuario();" *ngIf="usuario != 'Convidado'">Olá, {{usuario}}!</span>
         <span (click)="editarUsuario();" *ngIf="usuario == 'Convidado'">Fazer login!</span>
@@ -33,7 +33,7 @@
   </div>
   <router-outlet *ngIf="usuario != 'Convidado'"></router-outlet>
 </div>
-<div class="container-fluid" *ngIf="usuario == 'Convidado'">
+<div class="container-fluid" [ngClass]="{'container-large' : page == '/principal' }" *ngIf="usuario == 'Convidado'">
   <div class="well">
     <h3>Faça <a (click)="editarUsuario();" style="cursor: pointer;">login</a> para começar a usar a ferramenta.</h3>
   </div>

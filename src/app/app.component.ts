@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from './shared';
 import { FireService } from './services/fire.service';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +15,21 @@ export class AppComponent implements OnInit {
 
   title = 'Finanças dos Bichos';
   usuario: string;
+  page: string;
 
   constructor(
     public dialog: MatDialog,
     public loginService: LoginService,
-    private fire: FireService
-  ) { }
+    private fire: FireService,
+    private router: Router
+  ) {
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      map((event: NavigationEnd) => event.url))
+    .subscribe(url => {
+      this.page = url;
+    });
+   }
 
   ngOnInit(): void {
     if (this.loginService.login()) {

@@ -4,7 +4,7 @@
   <form #formDespesa="ngForm">
     <div class="form-group row">
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
           <label for="nome">Descrição:</label>
           <input [(ngModel)]="despesa.nome" #nome="ngModel" type="text" class="form-control" id="nome" name="nome" minlength="4" required>
           <div *ngIf="nome.errors && (nome.dirty || nome.touched)">
@@ -18,7 +18,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <label for="valor">Valor:</label>
           <input type="number" [(ngModel)]="despesa.valor" #valor="ngModel" class="form-control" id="valor" name="valor" required>
           <div *ngIf="valor.errors && (valor.dirty || valor.touched)" class="alert alert-danger">
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <label for="conta">Escolha a conta:</label>
           <select class="form-control" [(ngModel)]="despesa.conta" #conta="ngModel" id="conta" name="conta" required>
             <option value="">--selecione--</option>
@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <label for="categoria">Escolha a categoria:</label>
           <select class="form-control" [(ngModel)]="despesa.categoria" #categoria="ngModel" id="categoria" name="categoria" required>
             <option value="">--selecione--</option>
@@ -57,7 +57,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <label for="data">Data:</label>
           <input [(ngModel)]="dataForm" #data="ngModel" type="datetime-local" class="form-control center-block" id="data" name="data" required>
           <div *ngIf="data.errors && (data.dirty || data.touched)">
@@ -70,7 +70,7 @@
         </div>
       </div>
     </div>
-    <div class="row"><div class="form-group text-center col-md-8">
+    <div class="row"><div class="form-group text-center col-md-12">
       <a class="btn btn-success" (click)="cadastrar()" [class]="{'disabled':!formDespesa.form.valid}">
         <span class="glyphicon glyphicon-floppy-disk" style="top: 2px;"></span>&nbsp; Salvar
       </a>
