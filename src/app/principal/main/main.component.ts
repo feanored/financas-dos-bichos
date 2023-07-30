@@ -77,15 +77,19 @@ export class MainComponent implements OnInit {
     }
     this.mesesHistorico = new google.visualization.DataTable();
     this.mesesHistorico.addColumn('string', 'Mês');
+    // this.mesesHistorico.addColumn('number', 'Total');
     this.contas.forEach(z => {
       this.mesesHistorico.addColumn('number', z.nome);
     });
     for (let i=0; i < meses.length; i++) {
-      let totais = [];
+      const totais = [];
+      // let total = 0;
       this.contas.forEach(z => {
-        totais.push(this.despesaService.getPorContaEDatas(inicios[i], finais[i], z.nome));
+        const subtotal = this.despesaService.getPorContaEDatas(inicios[i], finais[i], z.nome);
+        // total += subtotal;
+        totais.push(subtotal);
       });
-      this.mesesHistorico.addRow([this.mes[meses[i]], ...totais]);
+      this.mesesHistorico.addRow([this.mes[meses[i]], /*total, */...totais]);
     }
   }
 
@@ -154,11 +158,12 @@ export class MainComponent implements OnInit {
       }
     });
 
-    const chart_historico = new google.visualization.LineChart(document.getElementById('pie_historico'));
+    const chart_historico = new google.visualization.AreaChart(document.getElementById('pie_historico'));
     chart_historico.draw(this.mesesHistorico, {
       title: 'Histórico de gastos por conta',
       width: 525,
       height: altura,
+      isStacked: 'absolute',
       axes: {
         x: {
           0: {label: ''}
